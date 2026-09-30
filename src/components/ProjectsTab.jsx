@@ -7,7 +7,7 @@ const PROJECTS = [
     type: 'Local AI',
     stack: 'Python • Ollama • Qwen3',
     desc: 'Self-learning desktop resolver converting natural language to JSON actions.',
-    link: 'https://github.com/ayush60728/Agent'
+    github: 'https://github.com/ayush60728/Agent'
   },
   {
     id: 'aquatrace',
@@ -15,7 +15,8 @@ const PROJECTS = [
     type: 'Chrome Ext',
     stack: 'Manifest V3 • Tokenizer',
     desc: 'Tracks and estimates water/energy/CO2 footprint of AI conversations.',
-    link: 'https://github.com/ayush60728/AquaTrace'
+    github: 'https://github.com/ayush60728/AquaTrace',
+    launch: 'https://chromewebstore.google.com/detail/aquatrace/lmjgniffadnhnpphojncpmaojpiflbcn'
   },
   {
     id: 'synapse',
@@ -23,7 +24,7 @@ const PROJECTS = [
     type: 'P2P Platform',
     stack: 'React 19 • Node.js • WebRTC',
     desc: 'Real-time skill exchange with virtual escrow wallets and 1:1 meeting rooms.',
-    link: 'https://github.com/ayush60728'
+    github: 'https://github.com/ayush60728'
   },
   {
     id: 'mf',
@@ -31,7 +32,8 @@ const PROJECTS = [
     type: 'AI Web App',
     stack: 'React • Gemini API • MediaPipe',
     desc: 'AI coaching assistant with computer vision-based exercise posture analysis.',
-    link: 'https://github.com/ayush60728/Tracker-with-posture-detection-'
+    github: 'https://github.com/ayush60728/Tracker-with-posture-detection-',
+    launch: 'https://mf-frontend-qs7c.onrender.com'
   }
 ];
 
@@ -93,15 +95,30 @@ export default function ProjectsTab() {
                 [{proj.stack}]
               </span>
               {selectedIndex === idx && (
-                <a 
-                  href={proj.link} 
-                  target="_blank" 
-                  rel="noreferrer"
-                  onClick={(e) => e.stopPropagation()}
-                  className="font-pixel text-[9px] text-white bg-retro-mint/20 border border-retro-mint px-2 py-1 hover:bg-retro-mint hover:text-black transition-colors shadow-[0_0_8px_rgba(52,211,153,0.3)]"
-                >
-                  LAUNCH
-                </a>
+                <div className="flex gap-2">
+                  {proj.github && (
+                    <a 
+                      href={proj.github} 
+                      target="_blank" 
+                      rel="noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="font-pixel text-[9px] text-white bg-slate-800/80 border border-slate-500 px-2 py-1 hover:bg-slate-600 hover:text-white transition-colors shadow-sm"
+                    >
+                      GITHUB
+                    </a>
+                  )}
+                  {proj.launch && (
+                    <a 
+                      href={proj.launch} 
+                      target="_blank" 
+                      rel="noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="font-pixel text-[9px] text-white bg-retro-mint/20 border border-retro-mint px-2 py-1 hover:bg-retro-mint hover:text-black transition-colors shadow-[0_0_8px_rgba(52,211,153,0.3)]"
+                    >
+                      LAUNCH
+                    </a>
+                  )}
+                </div>
               )}
             </div>
           </div>
