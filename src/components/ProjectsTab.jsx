@@ -7,6 +7,11 @@ const PROJECTS = [
     type: 'Local AI',
     stack: 'Python • Ollama • Qwen3',
     desc: 'Self-learning desktop resolver converting natural language to JSON actions.',
+    features: [
+      'Tiered search & JSON caching for instant local path/folder retrieval.',
+      'Integrated local Qwen3 LLM via Ollama for natural language to strict JSON schema execution.',
+      'Optimized latency by ~10x using decoding constraints and persistent warm-loading.'
+    ],
     github: 'https://github.com/ayush60728/Agent'
   },
   {
@@ -15,6 +20,11 @@ const PROJECTS = [
     type: 'Chrome Ext',
     stack: 'Manifest V3 • Tokenizer',
     desc: 'Tracks and estimates water/energy/CO2 footprint of AI conversations.',
+    features: [
+      'Local token counting via GPT Tokenizer for ChatGPT, Claude, Gemini, and DeepSeek.',
+      'Calculates real-time environmental footprints based on research estimates.',
+      'Includes daily budget alerts, local data exports, and persistent statistics.'
+    ],
     github: 'https://github.com/ayush60728/AquaTrace',
     launch: 'https://chromewebstore.google.com/detail/aquatrace/lmjgniffadnhnpphojncpmaojpiflbcn'
   },
@@ -24,6 +34,11 @@ const PROJECTS = [
     type: 'P2P Platform',
     stack: 'React 19 • Node.js • WebRTC',
     desc: 'Real-time skill exchange with virtual escrow wallets and 1:1 meeting rooms.',
+    features: [
+      'Engineered a virtual SKILL_CREDIT escrow wallet with MongoDB Transactions.',
+      'Built dynamic 1:1 meeting rooms via WebRTC/Jitsi and Socket.io.',
+      'Implemented strict Zod validation, rate limiting, and Multer/ImageKit uploads.'
+    ],
     github: 'https://github.com/ayush60728'
   },
   {
@@ -32,6 +47,11 @@ const PROJECTS = [
     type: 'AI Web App',
     stack: 'React • Gemini API • MediaPipe',
     desc: 'AI coaching assistant with computer vision-based exercise posture analysis.',
+    features: [
+      'Integrated Gemini API for AI-driven nutrition analysis and personalized coaching.',
+      'Developed posture validation and rep tracking using MediaPipe Pose.',
+      'Combined real-time computer vision geometry with rule-based form evaluation.'
+    ],
     github: 'https://github.com/ayush60728/Tracker-with-posture-detection-',
     launch: 'https://mf-frontend-qs7c.onrender.com'
   }
@@ -87,9 +107,16 @@ export default function ProjectsTab() {
                 {proj.type}
               </span>
             </div>
-            <p className="font-sans text-[11px] text-slate-400 mb-3 leading-relaxed">
+            <p className={`font-sans text-[11px] mb-3 leading-relaxed ${selectedIndex === idx ? 'text-slate-300' : 'text-slate-400'}`}>
               {proj.desc}
             </p>
+            {selectedIndex === idx && proj.features && (
+              <ul className="list-square list-inside font-sans text-[10px] text-slate-400 mb-4 space-y-1.5 ml-1">
+                {proj.features.map((feat, i) => (
+                  <li key={i} className="leading-relaxed"><span className="text-retro-neonCyan mr-1">►</span>{feat}</li>
+                ))}
+              </ul>
+            )}
             <div className="flex justify-between items-end mt-auto">
               <span className="font-pixel text-[8px] text-retro-amber/80 tracking-widest">
                 [{proj.stack}]
