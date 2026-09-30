@@ -30,4 +30,3 @@ venv/
 .vscode/
 .idea/
 node_modules
-*.mjs
