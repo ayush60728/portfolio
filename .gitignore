@@ -29,5 +29,17 @@ venv/
 .DS_Store
 .vscode/
 .idea/
-node_modules
-*.mjs
+
+# Stitch helper scripts (local dev tools, not part of the portfolio app)
+fetch-project.mjs
+fetch-screen.mjs
+fetch-screendata.mjs
+list-tools.mjs
+test-mcp.mjs
+scripts/stitch.config.mjs
+
+# Generated assets
+transparent_intro.gif
+animation.mp4
+error.webm
+screen-output.txt

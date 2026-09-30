@@ -1,76 +1,155 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 export default function MyselfTab() {
+  const scrollRef = useRef(null);
+
+  useEffect(() => {
+    const handleDpad = (e) => {
+      if (!scrollRef.current) return;
+      const { direction } = e.detail;
+      if (direction === 'up') {
+        scrollRef.current.scrollBy({ top: -50, behavior: 'smooth' });
+      } else if (direction === 'down') {
+        scrollRef.current.scrollBy({ top: 50, behavior: 'smooth' });
+      }
+    };
+    window.addEventListener('dpad', handleDpad);
+    return () => window.removeEventListener('dpad', handleDpad);
+  }, []);
+
   return (
-    <div className="w-full h-full flex items-start pt-6 px-3">
-      <div className="flex gap-4 w-full justify-between">
-        
-        {/* Left: Text Info */}
-        <div className="flex-1 flex flex-col gap-3 font-pixel text-[13px]">
-          {/* Name */}
-          <div className="flex gap-1">
-            <span className="text-slate-500 tracking-wider">NAME:</span>
-            <span className="text-retro-mint tracking-wider" style={{ textShadow: '0 0 6px rgba(52,211,153,0.4)' }}>
-              AYUSH
-            </span>
+    <div ref={scrollRef} className="w-full h-full overflow-y-auto custom-scrollbar">
+      <div className="flex flex-col gap-4 pt-4 px-3 pb-8">
+
+        {/* Profile Card */}
+        <div className="flex gap-4 w-full justify-between">
+          {/* Left: Text Info */}
+          <div className="flex-1 flex flex-col gap-2.5 font-pixel text-[13px]">
+            <div className="flex gap-1">
+              <span className="text-slate-500 tracking-wider">NAME:</span>
+              <span className="text-retro-mint tracking-wider" style={{ textShadow: '0 0 6px rgba(52,211,153,0.4)' }}>
+                AYUSH
+              </span>
+            </div>
+            <div className="w-full h-[1px] bg-slate-700/50"></div>
+            <div className="flex gap-1">
+              <span className="text-slate-500 tracking-wider">ROLE:</span>
+              <span className="text-retro-mint tracking-wider" style={{ textShadow: '0 0 6px rgba(52,211,153,0.4)' }}>
+                DEVELOPER
+              </span>
+            </div>
+            <div className="w-full h-[1px] bg-slate-700/50"></div>
+            <div className="flex flex-col gap-1.5 mt-1">
+              <span className="text-slate-500 tracking-wider">BIO:</span>
+              <p className="text-slate-300 font-sans leading-relaxed tracking-wide text-[11px] break-words">
+                I build playful web experiences and like exploring the space between code, design, and games.
+              </p>
+            </div>
           </div>
 
-          {/* Divider */}
-          <div className="w-full h-[1px] bg-slate-700/50"></div>
-
-          {/* Role */}
-          <div className="flex gap-1">
-            <span className="text-slate-500 tracking-wider">ROLE:</span>
-            <span className="text-retro-mint tracking-wider" style={{ textShadow: '0 0 6px rgba(52,211,153,0.4)' }}>
-              DEVELOPER
-            </span>
-          </div>
-
-          {/* Divider */}
-          <div className="w-full h-[1px] bg-slate-700/50"></div>
-
-          {/* Bio */}
-          <div className="flex flex-col gap-2 mt-2">
-            <span className="text-slate-500 tracking-wider">BIO:</span>
-            <p className="text-slate-300 leading-relaxed tracking-wide text-[11px] break-words">
-              I build playful web experiences and like exploring the space between code, design, and games.
-            </p>
+          {/* Right: Portrait Frame */}
+          <div className="shrink-0 flex flex-col items-center gap-2">
+            <div className="relative w-[120px] h-[120px] border-2 border-retro-neonCyan/70 bg-[#0d0f1a] rounded-sm p-1 shadow-[0_0_15px_rgba(34,211,238,0.5),inset_0_0_10px_rgba(34,211,238,0.2)] animate-[pulse_3s_ease-in-out_infinite]">
+              <div className="w-full h-full bg-[#0f1320] rounded-sm overflow-hidden flex items-center justify-center relative">
+                {/* Pixel art avatar */}
+                <div className="relative w-16 h-16">
+                  <div className="absolute top-0 left-3 w-10 h-10 bg-[#c4956a] rounded-sm"></div>
+                  <div className="absolute top-0 left-3 w-10 h-3 bg-[#2a1f14] rounded-t-sm"></div>
+                  <div className="absolute top-0 left-2 w-3 h-6 bg-[#2a1f14] rounded-l-sm"></div>
+                  <div className="absolute top-4 left-5 w-2 h-2 bg-[#1a1a2e] rounded-full"></div>
+                  <div className="absolute top-4 left-9 w-2 h-2 bg-[#1a1a2e] rounded-full"></div>
+                  <div className="absolute top-[15px] left-[21px] w-[3px] h-[3px] bg-white/80 rounded-full"></div>
+                  <div className="absolute top-[15px] left-[37px] w-[3px] h-[3px] bg-white/80 rounded-full"></div>
+                  <div className="absolute top-7 left-6 w-4 h-[2px] bg-[#8b5e3c] rounded-full"></div>
+                  <div className="absolute top-10 left-2 w-12 h-7 bg-[#1e3a5f] rounded-t-sm"></div>
+                  <div className="absolute top-10 left-5 w-6 h-2 bg-[#0f2940]" style={{ clipPath: 'polygon(20% 0, 80% 0, 100% 100%, 0% 100%)' }}></div>
+                </div>
+                {/* Scanline overlay */}
+                <div className="absolute inset-0 opacity-20" style={{
+                  background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.4) 2px, rgba(0,0,0,0.4) 4px)',
+                }}></div>
+              </div>
+            </div>
+            <span className="font-pixel text-[7px] text-slate-600 tracking-[0.3em] uppercase">portrait</span>
           </div>
         </div>
 
-        {/* Right: Portrait Frame */}
-        <div className="shrink-0 flex flex-col items-center gap-2">
-          <div className="relative w-[140px] h-[140px] border-2 border-retro-neonCyan/70 bg-[#0d0f1a] rounded-sm p-1 shadow-[0_0_15px_rgba(34,211,238,0.5),inset_0_0_10px_rgba(34,211,238,0.2)] animate-[pulse_3s_ease-in-out_infinite]">
-            {/* Pixel art avatar placeholder */}
-            <div className="w-full h-full bg-[#0f1320] rounded-sm overflow-hidden flex items-center justify-center relative">
-              {/* Simple pixel face */}
-              <div className="relative w-16 h-16">
-                {/* Head */}
-                <div className="absolute top-0 left-3 w-10 h-10 bg-[#c4956a] rounded-sm"></div>
-                {/* Hair */}
-                <div className="absolute top-0 left-3 w-10 h-3 bg-[#2a1f14] rounded-t-sm"></div>
-                <div className="absolute top-0 left-2 w-3 h-6 bg-[#2a1f14] rounded-l-sm"></div>
-                {/* Eyes */}
-                <div className="absolute top-4 left-5 w-2 h-2 bg-[#1a1a2e] rounded-full"></div>
-                <div className="absolute top-4 left-9 w-2 h-2 bg-[#1a1a2e] rounded-full"></div>
-                {/* Eye shine */}
-                <div className="absolute top-[15px] left-[21px] w-[3px] h-[3px] bg-white/80 rounded-full"></div>
-                <div className="absolute top-[15px] left-[37px] w-[3px] h-[3px] bg-white/80 rounded-full"></div>
-                {/* Mouth */}
-                <div className="absolute top-7 left-6 w-4 h-[2px] bg-[#8b5e3c] rounded-full"></div>
-                {/* Body/Shirt */}
-                <div className="absolute top-10 left-2 w-12 h-7 bg-[#1e3a5f] rounded-t-sm"></div>
-                {/* Collar */}
-                <div className="absolute top-10 left-5 w-6 h-2 bg-[#0f2940]" style={{ clipPath: 'polygon(20% 0, 80% 0, 100% 100%, 0% 100%)' }}></div>
-              </div>
-              {/* Scanline overlay on portrait */}
-              <div className="absolute inset-0 opacity-20" style={{
-                background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.4) 2px, rgba(0,0,0,0.4) 4px)',
-              }}></div>
+        {/* Divider */}
+        <div className="flex items-center gap-2">
+          <div className="flex-1 h-[1px] bg-slate-700/50"></div>
+          <div className="w-1 h-1 bg-retro-amber/40 rounded-full"></div>
+          <div className="flex-1 h-[1px] bg-slate-700/50"></div>
+        </div>
+
+        {/* Favorites */}
+        <div className="flex flex-col gap-2">
+          <h3 className="font-pixel text-[10px] text-retro-amber tracking-widest" style={{ textShadow: '0 0 6px rgba(251,191,36,0.4)' }}>
+            FAVORITES
+          </h3>
+          <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 font-sans text-[10px]">
+            <div className="flex gap-1">
+              <span className="text-slate-500">Editor:</span>
+              <span className="text-slate-300">VS Code</span>
+            </div>
+            <div className="flex gap-1">
+              <span className="text-slate-500">OS:</span>
+              <span className="text-slate-300">Linux</span>
+            </div>
+            <div className="flex gap-1">
+              <span className="text-slate-500">Lang:</span>
+              <span className="text-slate-300">JavaScript</span>
+            </div>
+            <div className="flex gap-1">
+              <span className="text-slate-500">Shell:</span>
+              <span className="text-slate-300">Bash</span>
             </div>
           </div>
-          {/* Decorative label under portrait */}
-          <span className="font-pixel text-[7px] text-slate-600 tracking-[0.3em] uppercase">portrait</span>
+        </div>
+
+        {/* Divider */}
+        <div className="flex items-center gap-2">
+          <div className="flex-1 h-[1px] bg-slate-700/50"></div>
+          <div className="w-1 h-1 bg-retro-amber/40 rounded-full"></div>
+          <div className="flex-1 h-[1px] bg-slate-700/50"></div>
+        </div>
+
+        {/* Current Interests */}
+        <div className="flex flex-col gap-2">
+          <h3 className="font-pixel text-[10px] text-retro-amber tracking-widest" style={{ textShadow: '0 0 6px rgba(251,191,36,0.4)' }}>
+            INTERESTS
+          </h3>
+          <div className="flex flex-wrap gap-1.5">
+            {['Local AI agents', 'WebRTC', 'Retro UI', 'Game dev', 'Open source'].map((interest) => (
+              <span
+                key={interest}
+                className="px-2 py-0.5 font-sans text-[9px] text-retro-neonCyan border border-retro-neonCyan/40 bg-cyan-950/30 rounded-sm"
+              >
+                {interest}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Divider */}
+        <div className="flex items-center gap-2">
+          <div className="flex-1 h-[1px] bg-slate-700/50"></div>
+          <div className="w-1 h-1 bg-retro-amber/40 rounded-full"></div>
+          <div className="flex-1 h-[1px] bg-slate-700/50"></div>
+        </div>
+
+        {/* Contact */}
+        <div className="flex flex-col gap-2">
+          <h3 className="font-pixel text-[10px] text-retro-amber tracking-widest" style={{ textShadow: '0 0 6px rgba(251,191,36,0.4)' }}>
+            LINKS
+          </h3>
+          <div className="flex flex-col gap-1.5 font-sans text-[10px]">
+            <a href="https://github.com/ayush60728" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-retro-mint transition-colors">
+              ► github.com/ayush60728
+            </a>
+            <span className="text-slate-400">
+              ► ayushkumar44344@gmail.com
+            </span>
+          </div>
         </div>
 
       </div>

@@ -105,3 +105,24 @@
 .animate-content-fade {
   animation: content-flash-in 1s ease-out forwards;
 }
+
+/* Respect user preference for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .retro-blinker {
+    animation: none;
+    opacity: 1;
+  }
+  .animate-typing-fast {
+    animation: none;
+    width: 100%;
+  }
+  .animate-content-fade {
+    animation: none;
+    opacity: 1;
+  }
+}
