@@ -2,6 +2,22 @@ import React, { useState, useEffect, useRef } from 'react';
 
 const PROJECTS = [
   {
+    id: 'agent',
+    title: 'Desktop Agent',
+    type: 'Local AI',
+    stack: 'Python • Ollama • Qwen3',
+    desc: 'Self-learning desktop resolver converting natural language to JSON actions.',
+    link: 'https://github.com/ayush60728/Agent'
+  },
+  {
+    id: 'aquatrace',
+    title: 'AquaTrace',
+    type: 'Chrome Ext',
+    stack: 'Manifest V3 • Tokenizer',
+    desc: 'Tracks and estimates water/energy/CO2 footprint of AI conversations.',
+    link: 'https://github.com/ayush60728/AquaTrace'
+  },
+  {
     id: 'synapse',
     title: 'Synapse',
     type: 'P2P Platform',
@@ -16,22 +32,6 @@ const PROJECTS = [
     stack: 'React • Gemini API • MediaPipe',
     desc: 'AI coaching assistant with computer vision-based exercise posture analysis.',
     link: 'https://github.com/ayush60728/Tracker-with-posture-detection-'
-  },
-  {
-    id: 'aquatrace',
-    title: 'AquaTrace',
-    type: 'Chrome Ext',
-    stack: 'Manifest V3 • Tokenizer',
-    desc: 'Tracks and estimates water/energy/CO2 footprint of AI conversations.',
-    link: 'https://github.com/ayush60728/AquaTrace'
-  },
-  {
-    id: 'agent',
-    title: 'Desktop Agent',
-    type: 'Local AI',
-    stack: 'Python • Ollama • Qwen3',
-    desc: 'Self-learning desktop resolver converting natural language to JSON actions.',
-    link: 'https://github.com/ayush60728/Agent'
   }
 ];
 
