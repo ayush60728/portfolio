@@ -56,11 +56,19 @@ def extract():
 
     cap.release()
     print(f"Total frames processed: {len(frames)}")
+    
+    # Downsample to ~15 fps to save size if it's high
+    target_fps = 15
+    if fps > target_fps:
+        step = int(fps / target_fps)
+        frames = frames[::step]
+        fps = fps / step
+
     print("Saving transparent_intro.gif (this might take a moment)...")
     
     # Save as GIF with transparency
-    # duration is in milliseconds per frame (1000/fps)
-    imageio.mimsave('transparent_intro.gif', frames, format='GIF', fps=fps, loop=0)
+    # duration is in seconds per frame (1.0/fps)
+    imageio.mimsave('transparent_intro.gif', frames, format='GIF', duration=1.0/fps, loop=0)
     print("Done! Saved as transparent_intro.gif")
 
 if __name__ == '__main__':
