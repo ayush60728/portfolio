@@ -1,0 +1,25 @@
+SCREEN DATA:
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"name\":\"projects/960050270387734660/screens/504ba61e7692491a97a0d059f06eb173\",\"title\":\"Retro Handheld Console with Integrated Terminal - Desktop\",\"screenshot\":{\"name\":\"projects/960050270387734660/screens/504ba61e7692491a97a0d059f06eb173/fileEntries/screenshot\",\"downloadUrl\":\"https://lh3.googleusercontent.com/aida/AEtjO1WWrPoT_puX8ZDXAXiFx-HZ_J9onm7BN7PuT0SFLwzQfEniCMBbT7jNV-nHc5zG0lioXj2AIcdfUhMbrQpFtdh4KOFpQLUv8DFix8xpbfizjaGqR3voTv9gHTwYpztu8oxDFgPS-QcugLRRkzs9c4yV6FNeKpRY7shp33jbL_rhI9mzrI_subhPU1f6IntER-Fm_C8tjP2HBGnJnt36-6nYx5V2sFBJjTMLkqtSc43HzWA7YNmg4vKhVw\"},\"htmlCode\":{\"name\":\"projects/960050270387734660/screens/504ba61e7692491a97a0d059f06eb173/fileEntries/html\",\"downloadUrl\":\"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ6Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpZCiVodG1sXzAwMDY1YzY4NjIzM2Y2MzQwMzM4NTlhMTMwMmNiZjM5EgsSBxDd8pT_5gsYAZIBIgoKcHJvamVjdF9pZBIUQhI5NjAwNTAyNzAzODc3MzQ2NjA&filename=&opi=89354086\",\"mimeType\":\"text/html\"},\"width\":\"2560\",\"height\":\"2144\",\"deviceType\":\"DESKTOP\"}"
+    }
+  ],
+  "structuredContent": {
+    "deviceType": "DESKTOP",
+    "height": "2144",
+    "htmlCode": {
+      "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ6Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpZCiVodG1sXzAwMDY1YzY4NjIzM2Y2MzQwMzM4NTlhMTMwMmNiZjM5EgsSBxDd8pT_5gsYAZIBIgoKcHJvamVjdF9pZBIUQhI5NjAwNTAyNzAzODc3MzQ2NjA&filename=&opi=89354086",
+      "mimeType": "text/html",
+      "name": "projects/960050270387734660/screens/504ba61e7692491a97a0d059f06eb173/fileEntries/html"
+    },
+    "name": "projects/960050270387734660/screens/504ba61e7692491a97a0d059f06eb173",
+    "screenshot": {
+      "downloadUrl": "https://lh3.googleusercontent.com/aida/AEtjO1WWrPoT_puX8ZDXAXiFx-HZ_J9onm7BN7PuT0SFLwzQfEniCMBbT7jNV-nHc5zG0lioXj2AIcdfUhMbrQpFtdh4KOFpQLUv8DFix8xpbfizjaGqR3voTv9gHTwYpztu8oxDFgPS-QcugLRRkzs9c4yV6FNeKpRY7shp33jbL_rhI9mzrI_subhPU1f6IntER-Fm_C8tjP2HBGnJnt36-6nYx5V2sFBJjTMLkqtSc43HzWA7YNmg4vKhVw",
+      "name": "projects/960050270387734660/screens/504ba61e7692491a97a0d059f06eb173/fileEntries/screenshot"
+    },
+    "title": "Retro Handheld Console with Integrated Terminal - Desktop",
+    "width": "2560"
+  }
+}
