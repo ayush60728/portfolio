@@ -91,6 +91,7 @@ export default function BootSequence({ onComplete }) {
       setPhase(5);
       setShowRain(false);
       setBursts([]);
+      if (onComplete) onComplete();
     }, 2200 + allLetters.length * 100 + 800);
 
     return () => {
