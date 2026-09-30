@@ -40,7 +40,7 @@ export default function MyselfTab() {
 
         {/* Right: Portrait Frame */}
         <div className="shrink-0 flex flex-col items-center gap-2">
-          <div className="relative w-[140px] h-[140px] border-2 border-[#7a5ea6] bg-[#0d0f1a] rounded-sm p-1 shadow-[0_0_10px_rgba(122,94,166,0.3)]">
+          <div className="relative w-[140px] h-[140px] border-2 border-retro-neonCyan/70 bg-[#0d0f1a] rounded-sm p-1 shadow-[0_0_15px_rgba(34,211,238,0.5),inset_0_0_10px_rgba(34,211,238,0.2)] animate-[pulse_3s_ease-in-out_infinite]">
             {/* Pixel art avatar placeholder */}
             <div className="w-full h-full bg-[#0f1320] rounded-sm overflow-hidden flex items-center justify-center relative">
               {/* Simple pixel face */}
