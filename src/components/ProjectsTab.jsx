@@ -85,8 +85,25 @@ export default function ProjectsTab() {
   return (
     <div 
       ref={scrollRef}
-      className="w-full h-full flex flex-col pt-4 px-4 overflow-y-auto custom-scrollbar pb-10"
+      className="w-full h-full flex flex-col pt-3 px-4 overflow-y-auto custom-scrollbar pb-10"
     >
+      <div className="flex justify-between items-center sticky top-0 bg-console-screenBg z-10 pb-2 pt-1 mb-3 border-b border-slate-700/80">
+        <a 
+          href="https://github.com/ayush60728" 
+          target="_blank" 
+          rel="noreferrer" 
+          className="font-pixel text-[13px] text-retro-amber drop-shadow-[0_0_6px_rgba(251,191,36,0.5)] hover:text-retro-neonCyan transition-colors tracking-wide"
+        >
+          @ayush60728
+        </a>
+        <a href="https://github.com/ayush60728" target="_blank" rel="noreferrer">
+          <img 
+            src="https://github.com/ayush60728.png" 
+            alt="ayush60728" 
+            className="w-7 h-7 rounded-sm border border-retro-amber/50 hover:border-retro-neonCyan transition-colors shadow-sm"
+          />
+        </a>
+      </div>
       <div className="flex flex-col gap-3">
         {PROJECTS.map((proj, idx) => (
           <div 
