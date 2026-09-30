@@ -100,7 +100,7 @@ export default function ProjectsTab() {
           <img 
             src="https://github.com/ayush60728.png" 
             alt="ayush60728" 
-            className="w-10 h-10 rounded-sm border border-retro-amber/50 hover:border-retro-neonCyan transition-colors shadow-sm"
+            className="w-12 h-12 rounded-sm border border-retro-amber/50 hover:border-retro-neonCyan transition-colors shadow-sm"
           />
         </a>
       </div>
