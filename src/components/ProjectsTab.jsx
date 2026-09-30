@@ -65,9 +65,6 @@ export default function ProjectsTab() {
       ref={scrollRef}
       className="w-full h-full flex flex-col pt-4 px-4 overflow-y-auto custom-scrollbar pb-10"
     >
-      <h2 className="font-pixel text-[13px] text-retro-amber mb-4 drop-shadow-[0_0_8px_rgba(251,191,36,0.6)] sticky top-0 bg-console-screenBg z-10 py-2 border-b border-slate-700/80">
-        DATABANKS: PROJECTS
-      </h2>
       <div className="flex flex-col gap-3">
         {PROJECTS.map((proj, idx) => (
           <div 
