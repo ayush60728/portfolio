@@ -1,10 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ConsoleShell from './components/ConsoleShell';
-import BootSequence from './components/BootSequence';
 
 export default function App() {
   const [sfxEnabled, setSfxEnabled] = useState(true);
-  const [booted, setBooted] = useState(false);
 
   // Web Audio Context setup
   const audioCtxRef = useRef(null);
@@ -61,11 +59,7 @@ export default function App() {
       </div>
 
       <main className="relative z-10 flex-1 w-full max-w-6xl mx-auto p-2 sm:p-4 flex flex-col items-center justify-center overflow-hidden">
-        {!booted ? (
-          <BootSequence onComplete={() => setBooted(true)} />
-        ) : (
-          <ConsoleShell playSound={triggerRetroBeep} />
-        )}
+        <ConsoleShell playSound={triggerRetroBeep} />
       </main>
 
       <footer className="relative z-10 border-t border-purple-950/40 bg-slate-950/90 py-2 text-center text-xs text-slate-500 font-mono shrink-0">
