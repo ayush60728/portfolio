@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import BootSequence from './BootSequence';
 import MyselfTab from './MyselfTab';
+import ProjectsTab from './ProjectsTab';
 
 export default function ScreenViewport({ playSound, isOn, isStarted, isBooting }) {
   const [time, setTime] = useState('');
@@ -119,7 +120,7 @@ export default function ScreenViewport({ playSound, isOn, isStarted, isBooting }
             ) : (
               <div className="w-full h-full animate-content-fade">
                 {activeTab === 0 && <MyselfTab />}
-                {activeTab === 1 && <p className="font-pixel text-white text-sm p-6">PROJECTS CONTENT</p>}
+                {activeTab === 1 && <ProjectsTab />}
                 {activeTab === 2 && <p className="font-pixel text-white text-sm p-6">SKILLS CONTENT</p>}
                 {activeTab === 3 && <p className="font-pixel text-white text-sm p-6">TERMINAL CONTENT</p>}
               </div>
