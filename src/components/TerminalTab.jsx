@@ -13,8 +13,8 @@ const TerminalTab = () => {
   const inputRef = useRef(null);
 
   useEffect(() => {
-    // Auto-focus the input when the terminal mounts
-    const timer = setTimeout(() => inputRef.current?.focus(), 100);
+    // Auto-focus the input when the terminal mounts, without scrolling the whole page
+    const timer = setTimeout(() => inputRef.current?.focus({ preventScroll: true }), 100);
     return () => clearTimeout(timer);
   }, []);
 
@@ -121,7 +121,7 @@ const TerminalTab = () => {
     <div className="flex flex-col h-full bg-[#0b0f19] font-mono text-[10px] sm:text-[11px] p-2 overflow-hidden">
       <div 
         className="flex-1 overflow-y-auto custom-scrollbar flex flex-col gap-1 pb-2"
-        onClick={() => inputRef.current && inputRef.current.focus()}
+        onClick={() => inputRef.current && inputRef.current.focus({ preventScroll: true })}
       >
         {history.map((line, i) => (
           <div 
