@@ -9,7 +9,7 @@ const TerminalTab = () => {
   const [commandHistory, setCommandHistory] = useState([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   
-  const endOfOutputRef = useRef(null);
+  const scrollContainerRef = useRef(null);
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -19,8 +19,8 @@ const TerminalTab = () => {
   }, []);
 
   useEffect(() => {
-    if (endOfOutputRef.current) {
-      endOfOutputRef.current.scrollIntoView({ behavior: 'smooth' });
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
     }
   }, [history]);
 
@@ -120,6 +120,7 @@ const TerminalTab = () => {
   return (
     <div className="flex flex-col h-full bg-[#0b0f19] font-mono text-[10px] sm:text-[11px] p-2 overflow-hidden">
       <div 
+        ref={scrollContainerRef}
         className="flex-1 overflow-y-auto custom-scrollbar flex flex-col gap-1 pb-2"
         onClick={() => inputRef.current && inputRef.current.focus({ preventScroll: true })}
       >
@@ -133,7 +134,6 @@ const TerminalTab = () => {
             {line.content}
           </div>
         ))}
-        <div ref={endOfOutputRef} />
       </div>
 
       <div className="flex items-center text-[#34d399] mt-1 shrink-0">
