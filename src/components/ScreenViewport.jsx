@@ -11,6 +11,7 @@ export default function ScreenViewport({ playSound, isOn, isStarted, isBooting }
   const [time, setTime] = useState('');
   const [battery, setBattery] = useState({ level: 100, charging: false });
   const [activeTab, setActiveTab] = useState(0);
+  const [hoveredTab, setHoveredTab] = useState(0);
   const sidebarRef = useRef(null);
 
   // Clock Effect
@@ -60,38 +61,42 @@ export default function ScreenViewport({ playSound, isOn, isStarted, isBooting }
     };
   }, []);
 
-  // D-pad left/right switches tabs; up/down is handled inside each tab's scroll
+  // Up/Down moves sidebar cursor; Enter/A confirms selection; disabled in terminal
   useEffect(() => {
     if (!isStarted || isBooting) return;
 
     const handleDpad = (e) => {
-      // Don't switch tabs if the terminal input is focused
-      const activeTag = document.activeElement?.tagName?.toLowerCase();
-      if (activeTag === 'input' || activeTag === 'textarea') return;
+      // Fully disable when terminal is active (arrow keys needed for history nav)
+      if (activeTab === 3) return;
 
       const { direction } = e.detail;
-      if (direction === 'right') {
-        setActiveTab((prev) => {
-          const next = Math.min(prev + 1, TAB_NAMES.length - 1);
-          if (next !== prev && playSound) playSound(600, 'square', 0.05);
-          return next;
-        });
-      } else if (direction === 'left') {
-        setActiveTab((prev) => {
-          const next = Math.max(prev - 1, 0);
-          if (next !== prev && playSound) playSound(600, 'square', 0.05);
-          return next;
-        });
+      if (direction === 'up') {
+        setHoveredTab((prev) => Math.max(prev - 1, 0));
+      } else if (direction === 'down') {
+        setHoveredTab((prev) => Math.min(prev + 1, TAB_NAMES.length - 1));
+      }
+    };
+
+    const handleAction = (e) => {
+      if (activeTab === 3) return;
+      if (e.detail.type === 'A') {
+        setActiveTab(hoveredTab);
+        if (playSound) playSound(600, 'square', 0.05);
       }
     };
 
     window.addEventListener('dpad', handleDpad);
-    return () => window.removeEventListener('dpad', handleDpad);
-  }, [isStarted, isBooting, playSound]);
+    window.addEventListener('actionBtn', handleAction);
+    return () => {
+      window.removeEventListener('dpad', handleDpad);
+      window.removeEventListener('actionBtn', handleAction);
+    };
+  }, [isStarted, isBooting, activeTab, hoveredTab, playSound]);
 
   const handleTabClick = useCallback((idx) => {
     if (!isBooting) {
       setActiveTab(idx);
+      setHoveredTab(idx);
       if (playSound) playSound(600, 'square', 0.05);
     }
   }, [isBooting, playSound]);
@@ -174,12 +179,19 @@ export default function ScreenViewport({ playSound, isOn, isStarted, isBooting }
                 className={`relative pl-2 pr-1 py-2 w-full cursor-pointer font-pixel text-[9px] sm:text-[10px] tracking-widest transition-all outline-none focus-visible:ring-1 focus-visible:ring-retro-neonCyan ${
                   activeTab === idx
                     ? 'text-white border border-[#7a5ea6] bg-[#1e1536]'
+                    : hoveredTab === idx && !isBooting
+                    ? 'text-retro-mint border border-retro-mint/50 bg-retro-mint/10'
                     : 'text-slate-600 border border-transparent hover:text-slate-400'
                 } ${isBooting ? 'opacity-40 pointer-events-none' : 'opacity-100'}`}
               >
                 <span className="relative z-10">{item}</span>
+                {/* Arrow indicator for active tab */}
                 {activeTab === idx && !isBooting && (
                   <div className="absolute -right-[5.5px] top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-[#1e1536] border-t border-r border-[#7a5ea6] rotate-45 z-10"></div>
+                )}
+                {/* Cursor indicator for hovered (not yet active) tab */}
+                {hoveredTab === idx && activeTab !== idx && !isBooting && (
+                  <span className="absolute right-1.5 top-1/2 -translate-y-1/2 text-retro-mint text-[8px] retro-blinker">›</span>
                 )}
               </div>
             ))}
