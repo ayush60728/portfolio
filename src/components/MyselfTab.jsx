@@ -4,7 +4,7 @@ export default function MyselfTab() {
   const scrollRef = useRef(null);
 
   useEffect(() => {
-    const handleDpad = (e) => {
+    const handleContentNav = (e) => {
       if (!scrollRef.current) return;
       const { direction } = e.detail;
       if (direction === 'up') {
@@ -13,8 +13,8 @@ export default function MyselfTab() {
         scrollRef.current.scrollBy({ top: 50, behavior: 'smooth' });
       }
     };
-    window.addEventListener('dpad', handleDpad);
-    return () => window.removeEventListener('dpad', handleDpad);
+    window.addEventListener('contentNav', handleContentNav);
+    return () => window.removeEventListener('contentNav', handleContentNav);
   }, []);
 
   return (

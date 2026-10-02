@@ -4,20 +4,18 @@ const SkillsTab = () => {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    const handleDpad = (e) => {
+    const handleContentNav = (e) => {
       if (!containerRef.current) return;
       const { direction } = e.detail;
-      const scrollAmount = 40; // Pixel scroll amount
-      
+      const scrollAmount = 40;
       if (direction === 'up') {
         containerRef.current.scrollBy({ top: -scrollAmount, behavior: 'smooth' });
       } else if (direction === 'down') {
         containerRef.current.scrollBy({ top: scrollAmount, behavior: 'smooth' });
       }
     };
-
-    window.addEventListener('dpad', handleDpad);
-    return () => window.removeEventListener('dpad', handleDpad);
+    window.addEventListener('contentNav', handleContentNav);
+    return () => window.removeEventListener('contentNav', handleContentNav);
   }, []);
 
   const skillsData = [

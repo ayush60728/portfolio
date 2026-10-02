@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 const PROJECTS = [
   {
@@ -62,7 +62,22 @@ export default function ProjectsTab() {
   const scrollRef = useRef(null);
   const cardRefs = useRef([]);
 
-
+  useEffect(() => {
+    const handleContentNav = (e) => {
+      const { direction } = e.detail;
+      setSelectedIndex((prev) => {
+        let next = prev;
+        if (direction === 'up' && prev > 0) next = prev - 1;
+        if (direction === 'down' && prev < PROJECTS.length - 1) next = prev + 1;
+        if (next !== prev && cardRefs.current[next]) {
+          cardRefs.current[next].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        return next;
+      });
+    };
+    window.addEventListener('contentNav', handleContentNav);
+    return () => window.removeEventListener('contentNav', handleContentNav);
+  }, []);
 
 
   return (

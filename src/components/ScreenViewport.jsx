@@ -61,27 +61,55 @@ export default function ScreenViewport({ playSound, isOn, isStarted, isBooting }
     };
   }, []);
 
-  // Up/Down moves sidebar cursor; Enter/A confirms selection; disabled in terminal
+  const [focusMode, setFocusMode] = useState('sidebar'); // 'sidebar' | 'content'
+
+  // Reset to sidebar focus whenever the active tab changes
+  useEffect(() => {
+    setFocusMode('sidebar');
+  }, [activeTab]);
+
+  // Two-mode navigation: sidebar (up/down = cursor, right = enter content) 
+  //                       content (up/down = scroll/navigate, left = back to sidebar)
   useEffect(() => {
     if (!isStarted || isBooting) return;
 
     const handleDpad = (e) => {
-      // Fully disable when terminal is active (arrow keys needed for history nav)
+      // Fully disable when terminal is active
       if (activeTab === 3) return;
 
       const { direction } = e.detail;
-      if (direction === 'up') {
-        setHoveredTab((prev) => Math.max(prev - 1, 0));
-      } else if (direction === 'down') {
-        setHoveredTab((prev) => Math.min(prev + 1, TAB_NAMES.length - 1));
+
+      if (focusMode === 'sidebar') {
+        if (direction === 'up') {
+          setHoveredTab((prev) => Math.max(prev - 1, 0));
+        } else if (direction === 'down') {
+          setHoveredTab((prev) => Math.min(prev + 1, TAB_NAMES.length - 1));
+        } else if (direction === 'right') {
+          // Enter content mode
+          setFocusMode('content');
+          if (playSound) playSound(640, 'square', 0.05);
+        }
+      } else {
+        // content mode
+        if (direction === 'left') {
+          // Back to sidebar mode
+          setFocusMode('sidebar');
+          if (playSound) playSound(400, 'square', 0.05);
+        } else {
+          // Dispatch to content via a separate event so tabs can handle it
+          window.dispatchEvent(new CustomEvent('contentNav', { detail: { direction } }));
+        }
       }
     };
 
     const handleAction = (e) => {
       if (activeTab === 3) return;
       if (e.detail.type === 'A') {
-        setActiveTab(hoveredTab);
-        if (playSound) playSound(600, 'square', 0.05);
+        if (focusMode === 'sidebar') {
+          setActiveTab(hoveredTab);
+          setFocusMode('content');
+          if (playSound) playSound(600, 'square', 0.05);
+        }
       }
     };
 
@@ -91,7 +119,7 @@ export default function ScreenViewport({ playSound, isOn, isStarted, isBooting }
       window.removeEventListener('dpad', handleDpad);
       window.removeEventListener('actionBtn', handleAction);
     };
-  }, [isStarted, isBooting, activeTab, hoveredTab, playSound]);
+  }, [isStarted, isBooting, activeTab, hoveredTab, focusMode, playSound]);
 
   const handleTabClick = useCallback((idx) => {
     if (!isBooting) {
@@ -195,6 +223,14 @@ export default function ScreenViewport({ playSound, isOn, isStarted, isBooting }
                 )}
               </div>
             ))}
+            {/* Focus mode indicator */}
+            {!isBooting && activeTab !== 3 && (
+              <div className="mt-1 px-1">
+                <span className={`font-pixel text-[6px] tracking-wider transition-colors ${focusMode === 'content' ? 'text-retro-neonCyan' : 'text-slate-600'}`}>
+                  {focusMode === 'content' ? '► CONTENT' : '│ SIDEBAR'}
+                </span>
+              </div>
+            )}
           </nav>
 
           {/* Right Main Content Area */}
