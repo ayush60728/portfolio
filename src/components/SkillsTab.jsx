@@ -44,23 +44,22 @@ const SkillsTab = () => {
   return (
     <div
       ref={containerRef}
-      className="w-full h-full overflow-y-auto bg-[#0b0f19] p-4 font-pixel"
-      style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+      className="w-full h-full overflow-y-auto custom-scrollbar bg-[#0b0f19] p-4"
     >
-      <div className="flex flex-col gap-4 pb-4">
+      <div className="flex flex-col gap-5 pb-4">
         {skillsData.map((section, idx) => (
           <div key={idx} className="flex flex-col gap-2">
-            <h3 
-              className="text-[#fbbf24] text-[11px] uppercase tracking-wider"
-              style={{ textShadow: '0 0 5px rgba(251, 191, 36, 0.6)' }}
+            <h3
+              className="font-pixel text-[9px] uppercase tracking-widest text-retro-mint"
+              style={{ textShadow: '0 0 6px rgba(52,211,153,0.4)' }}
             >
               {section.category}
             </h3>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1.5">
               {section.skills.map((skill, skillIdx) => (
                 <span
                   key={skillIdx}
-                  className="px-2 py-1 text-[10px] text-[#34d399] border border-[#22d3ee] rounded-sm bg-[#0b0f19]/80 shadow-[0_0_2px_rgba(34,211,238,0.3)]"
+                  className="px-2 py-0.5 font-sans text-[10px] text-slate-300 border border-slate-700 rounded-sm bg-slate-800/40 hover:border-retro-mint/50 hover:text-retro-mint transition-colors"
                 >
                   {skill}
                 </span>
