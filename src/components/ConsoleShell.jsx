@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import ScreenViewport from './ScreenViewport';
 import { useGameInput } from '../hooks/useGameInput';
+import SpriteVideo from './SpriteVideo';
 
 export default function ConsoleShell({ playSound }) {
   const [scanlines, setScanlines] = useState(true);
@@ -252,20 +253,7 @@ export default function ConsoleShell({ playSound }) {
       </div>
 
       {/* Animated Mascot (Right Side) */}
-      <div 
-        className={`hidden lg:block absolute right-4 xl:right-[8%] 2xl:right-[12%] bottom-1/4 w-56 xl:w-72 h-auto pointer-events-none transition-all duration-1000 ease-out transform ${
-          isOn ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-12 scale-95'
-        }`}
-      >
-        <video 
-          src="/transparent.mp4" 
-          autoPlay 
-          loop 
-          muted 
-          playsInline 
-          className="w-full h-auto object-contain filter drop-shadow-2xl"
-        />
-      </div>
+      <SpriteVideo isOn={isOn} />
     </section>
   );
 }
