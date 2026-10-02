@@ -223,14 +223,6 @@ export default function ScreenViewport({ playSound, isOn, isStarted, isBooting }
                 )}
               </div>
             ))}
-            {/* Focus mode indicator */}
-            {!isBooting && activeTab !== 3 && (
-              <div className="mt-1 px-1">
-                <span className={`font-pixel text-[6px] tracking-wider transition-colors ${focusMode === 'content' ? 'text-retro-neonCyan' : 'text-slate-600'}`}>
-                  {focusMode === 'content' ? '► CONTENT' : '│ SIDEBAR'}
-                </span>
-              </div>
-            )}
           </nav>
 
           {/* Right Main Content Area */}
