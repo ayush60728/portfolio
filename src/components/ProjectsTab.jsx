@@ -134,10 +134,7 @@ export default function ProjectsTab() {
                 ))}
               </ul>
             )}
-            <div className="flex justify-between items-end mt-auto">
-              <span className="font-pixel text-[8px] text-retro-amber/80 tracking-widest">
-                [{proj.stack}]
-              </span>
+            <div className="flex justify-end items-end mt-auto">
               {selectedIndex === idx && (
                 <div className="flex gap-2">
                   {proj.github && (
