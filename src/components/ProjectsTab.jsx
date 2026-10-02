@@ -92,7 +92,7 @@ export default function ProjectsTab() {
           href="https://github.com/ayush60728" 
           target="_blank" 
           rel="noreferrer" 
-          className="font-pixel text-[13px] text-retro-amber drop-shadow-[0_0_6px_rgba(251,191,36,0.5)] hover:text-retro-neonCyan transition-colors tracking-wide"
+          className="font-pixel text-[13px] text-retro-mint drop-shadow-[0_0_6px_rgba(52,211,153,0.5)] hover:text-white transition-colors tracking-wide"
         >
           @ayush60728
         </a>
@@ -100,7 +100,7 @@ export default function ProjectsTab() {
           <img 
             src="https://github.com/ayush60728.png" 
             alt="ayush60728" 
-            className="w-12 h-12 rounded-sm border border-retro-amber/50 hover:border-retro-neonCyan transition-colors shadow-sm"
+            className="w-12 h-12 rounded-sm border border-retro-mint/50 hover:border-white transition-colors shadow-sm"
           />
         </a>
       </div>
