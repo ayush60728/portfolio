@@ -99,7 +99,7 @@ export default function ConsoleShell({ playSound }) {
   }, [clearBootTimers]);
 
   return (
-    <section className="relative w-full h-full flex justify-center items-center overflow-hidden" aria-label="Retro console portfolio">
+    <section className="relative w-full h-full flex justify-center items-center" aria-label="Retro console portfolio">
       <div 
         className="relative w-full h-full flex flex-col max-w-[580px] sm:max-w-[660px] md:max-w-[720px] bg-gradient-to-b from-lilac-400 via-console-shell to-lilac-700 rounded-[52px] sm:rounded-[60px] p-4 sm:p-5 pb-8 sm:pb-12 shadow-shell-outer border-2 border-purple-300/40"
       >

@@ -93,14 +93,14 @@ export default function SpriteVideo({ isOn }) {
 
   return (
     <div 
-      className={`hidden 2xl:block absolute transition-all duration-1000 ease-out transform pointer-events-none z-0 ${
+      className={`hidden lg:block absolute transition-all duration-1000 ease-out transform pointer-events-none -z-10 ${
         isOn ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-12 scale-95'
       }`}
       style={{ 
-        right: '4%', 
-        bottom: '15%',
-        width: '320px',
-        height: '420px',
+        right: '-12%', 
+        bottom: '0',
+        width: '420px',
+        height: '520px',
       }}
     >
       <video 
@@ -114,9 +114,9 @@ export default function SpriteVideo({ isOn }) {
       {/* Show the filtered canvas instead */}
       <canvas
         ref={canvasRef}
-        width={320}
-        height={420}
-        className="w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]"
+        width={420}
+        height={520}
+        className="w-full h-full object-right-bottom filter drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]"
       />
     </div>
   );
