@@ -98,7 +98,7 @@ export default function ConsoleShell({ playSound }) {
   }, [clearBootTimers]);
 
   return (
-    <section className="w-full h-full flex justify-center items-center" aria-label="Retro console portfolio">
+    <section className="relative w-full h-full flex justify-center items-center overflow-hidden" aria-label="Retro console portfolio">
       <div 
         className="relative w-full h-full flex flex-col max-w-[580px] sm:max-w-[660px] md:max-w-[720px] bg-gradient-to-b from-lilac-400 via-console-shell to-lilac-700 rounded-[52px] sm:rounded-[60px] p-4 sm:p-5 pb-8 sm:pb-12 shadow-shell-outer border-2 border-purple-300/40"
       >
@@ -249,6 +249,22 @@ export default function ConsoleShell({ playSound }) {
             <span className="speaker-grill-slot w-2.5 sm:w-3 h-9 sm:h-10 rounded-full"></span>
           </div>
         </div>
+      </div>
+
+      {/* Animated Mascot (Right Side) */}
+      <div 
+        className={`hidden lg:block absolute right-4 xl:right-[8%] 2xl:right-[12%] bottom-1/4 w-56 xl:w-72 h-auto pointer-events-none transition-all duration-1000 ease-out transform ${
+          isOn ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-12 scale-95'
+        }`}
+      >
+        <video 
+          src="/transparent.mp4" 
+          autoPlay 
+          loop 
+          muted 
+          playsInline 
+          className="w-full h-auto object-contain filter drop-shadow-2xl"
+        />
       </div>
     </section>
   );
