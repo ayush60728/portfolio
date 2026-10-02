@@ -60,32 +60,34 @@ export default function ScreenViewport({ playSound, isOn, isStarted, isBooting }
     };
   }, []);
 
-  // D-pad left/right to switch tabs
+  // D-pad left/right switches tabs; up/down is handled inside each tab's scroll
   useEffect(() => {
     if (!isStarted || isBooting) return;
 
     const handleDpad = (e) => {
-      const { direction } = e.detail;
-      if (direction === 'left') {
-        // Ignore left d-pad on terminal tab (reserved for text cursor)
-      }
-      // Note: up/down and left/right within content is handled by each tab
-    };
+      // Don't switch tabs if the terminal input is focused
+      const activeTag = document.activeElement?.tagName?.toLowerCase();
+      if (activeTag === 'input' || activeTag === 'textarea') return;
 
-    const handleAction = (e) => {
-      const { type } = e.detail;
-      if (type === 'B') {
-        // B currently has no back action at top level
+      const { direction } = e.detail;
+      if (direction === 'right') {
+        setActiveTab((prev) => {
+          const next = Math.min(prev + 1, TAB_NAMES.length - 1);
+          if (next !== prev && playSound) playSound(600, 'square', 0.05);
+          return next;
+        });
+      } else if (direction === 'left') {
+        setActiveTab((prev) => {
+          const next = Math.max(prev - 1, 0);
+          if (next !== prev && playSound) playSound(600, 'square', 0.05);
+          return next;
+        });
       }
     };
 
     window.addEventListener('dpad', handleDpad);
-    window.addEventListener('actionBtn', handleAction);
-    return () => {
-      window.removeEventListener('dpad', handleDpad);
-      window.removeEventListener('actionBtn', handleAction);
-    };
-  }, [isStarted, isBooting, activeTab]);
+    return () => window.removeEventListener('dpad', handleDpad);
+  }, [isStarted, isBooting, playSound]);
 
   const handleTabClick = useCallback((idx) => {
     if (!isBooting) {
