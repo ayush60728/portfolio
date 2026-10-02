@@ -59,7 +59,7 @@ const SkillsTab = () => {
               {section.skills.map((skill, skillIdx) => (
                 <span
                   key={skillIdx}
-                  className="px-2.5 py-1 font-sans text-[12px] font-semibold text-slate-300 border border-slate-700 rounded-sm bg-slate-800/40 hover:border-retro-mint/50 hover:text-retro-mint transition-colors"
+                  className="px-3 py-1.5 font-sans text-[14px] font-semibold text-slate-300 border border-slate-700 rounded-sm bg-slate-800/40 hover:border-retro-mint/50 hover:text-retro-mint transition-colors"
                 >
                   {skill}
                 </span>
