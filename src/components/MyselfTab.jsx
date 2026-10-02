@@ -74,80 +74,17 @@ export default function MyselfTab() {
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="flex items-center gap-2">
-          <div className="flex-1 h-[1px] bg-slate-700/50"></div>
-          <div className="w-1 h-1 bg-retro-amber/40 rounded-full"></div>
-          <div className="flex-1 h-[1px] bg-slate-700/50"></div>
-        </div>
+        {/* Simple Divider */}
+        <div className="w-full h-[1px] bg-slate-700/50 my-2"></div>
 
-        {/* Favorites */}
+        {/* Contact Links */}
         <div className="flex flex-col gap-2">
-          <h3 className="font-pixel text-[10px] text-retro-amber tracking-widest" style={{ textShadow: '0 0 6px rgba(251,191,36,0.4)' }}>
-            FAVORITES
-          </h3>
-          <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 font-sans text-[10px]">
-            <div className="flex gap-1">
-              <span className="text-slate-500">Editor:</span>
-              <span className="text-slate-300">VS Code</span>
-            </div>
-            <div className="flex gap-1">
-              <span className="text-slate-500">OS:</span>
-              <span className="text-slate-300">Linux</span>
-            </div>
-            <div className="flex gap-1">
-              <span className="text-slate-500">Lang:</span>
-              <span className="text-slate-300">JavaScript</span>
-            </div>
-            <div className="flex gap-1">
-              <span className="text-slate-500">Shell:</span>
-              <span className="text-slate-300">Bash</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Divider */}
-        <div className="flex items-center gap-2">
-          <div className="flex-1 h-[1px] bg-slate-700/50"></div>
-          <div className="w-1 h-1 bg-retro-amber/40 rounded-full"></div>
-          <div className="flex-1 h-[1px] bg-slate-700/50"></div>
-        </div>
-
-        {/* Current Interests */}
-        <div className="flex flex-col gap-2">
-          <h3 className="font-pixel text-[10px] text-retro-amber tracking-widest" style={{ textShadow: '0 0 6px rgba(251,191,36,0.4)' }}>
-            INTERESTS
-          </h3>
-          <div className="flex flex-wrap gap-1.5">
-            {['Local AI agents', 'WebRTC', 'Retro UI', 'Game dev', 'Open source'].map((interest) => (
-              <span
-                key={interest}
-                className="px-2 py-0.5 font-sans text-[9px] text-retro-neonCyan border border-retro-neonCyan/40 bg-cyan-950/30 rounded-sm"
-              >
-                {interest}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* Divider */}
-        <div className="flex items-center gap-2">
-          <div className="flex-1 h-[1px] bg-slate-700/50"></div>
-          <div className="w-1 h-1 bg-retro-amber/40 rounded-full"></div>
-          <div className="flex-1 h-[1px] bg-slate-700/50"></div>
-        </div>
-
-        {/* Contact */}
-        <div className="flex flex-col gap-2">
-          <h3 className="font-pixel text-[10px] text-retro-amber tracking-widest" style={{ textShadow: '0 0 6px rgba(251,191,36,0.4)' }}>
-            LINKS
-          </h3>
-          <div className="flex flex-col gap-1.5 font-sans text-[10px]">
-            <a href="https://github.com/ayush60728" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-retro-mint transition-colors">
-              ► github.com/ayush60728
+          <div className="flex flex-col gap-2.5 font-sans text-[11px]">
+            <a href="https://github.com/ayush60728" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-retro-neonCyan transition-colors flex items-center gap-2">
+              <span className="text-retro-neonCyan text-[9px]">►</span> github.com/ayush60728
             </a>
-            <span className="text-slate-400">
-              ► ayushkumar44344@gmail.com
+            <span className="text-slate-400 flex items-center gap-2">
+              <span className="text-retro-neonCyan text-[9px]">►</span> ayushkumar44344@gmail.com
             </span>
           </div>
         </div>
