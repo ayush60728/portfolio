@@ -31,7 +31,7 @@ const TerminalTab = () => {
     setCommandHistory(prev => [...prev, trimmedCmd]);
     setHistoryIndex(-1);
 
-    const newHistory = [...history, { type: 'input', content: `> ${trimmedCmd}` }];
+    const newHistory = [...history, { type: 'input', content: `ayush@portfolio:~$ ${trimmedCmd}` }];
 
     const args = trimmedCmd.split(' ');
     const cmd = args[0].toLowerCase();
@@ -118,17 +118,22 @@ const TerminalTab = () => {
   };
 
   return (
-    <div className="flex flex-col h-full bg-[#0b0f19] font-mono text-[10px] sm:text-[11px] p-2 overflow-hidden">
+    <div className="flex flex-col h-full bg-[#080b13] font-lcd text-[18px] sm:text-[20px] p-3 overflow-hidden leading-tight">
+      {/* Subtle scanline overlay */}
+      <div className="absolute inset-0 pointer-events-none opacity-5 bg-[linear-gradient(rgba(255,255,255,0)_50%,rgba(0,0,0,1)_50%)] bg-[length:100%_4px] z-10"></div>
+      
       <div 
         ref={scrollContainerRef}
-        className="flex-1 overflow-y-auto custom-scrollbar flex flex-col gap-1 pb-2"
+        className="flex-1 overflow-y-auto custom-scrollbar flex flex-col gap-1 pb-2 z-20"
         onClick={() => inputRef.current && inputRef.current.focus({ preventScroll: true })}
       >
         {history.map((line, i) => (
           <div 
             key={i} 
             className={`whitespace-pre-wrap break-words ${
-              line.type === 'system' ? 'text-slate-500' : 'text-[#34d399]'
+              line.type === 'system' ? 'text-slate-400 drop-shadow-[0_0_2px_rgba(148,163,184,0.4)]' : 
+              line.type === 'input' ? 'text-retro-neonCyan drop-shadow-[0_0_4px_rgba(34,211,238,0.5)]' :
+              'text-retro-mint drop-shadow-[0_0_4px_rgba(52,211,153,0.5)]'
             }`}
           >
             {line.content}
@@ -136,8 +141,8 @@ const TerminalTab = () => {
         ))}
       </div>
 
-      <div className="flex items-center text-[#34d399] mt-1 shrink-0">
-        <span className="mr-2">{'>'}</span>
+      <div className="flex items-center text-retro-neonCyan drop-shadow-[0_0_4px_rgba(34,211,238,0.5)] mt-1 shrink-0 z-20">
+        <span className="mr-2">ayush@portfolio:~$</span>
         <input
           ref={inputRef}
           type="text"
@@ -146,7 +151,7 @@ const TerminalTab = () => {
           onKeyDown={handleKeyDown}
           autoComplete="off"
           spellCheck="false"
-          className="flex-1 bg-transparent outline-none border-none text-[#34d399] p-0 focus:ring-0 focus:outline-none placeholder-transparent"
+          className="flex-1 bg-transparent outline-none border-none text-retro-mint drop-shadow-[0_0_4px_rgba(52,211,153,0.5)] p-0 focus:ring-0 focus:outline-none placeholder-transparent font-lcd text-[18px] sm:text-[20px]"
         />
       </div>
     </div>
