@@ -61,6 +61,9 @@ export default function ConsoleShell({ playSound }) {
     if (!isOn) return;
     
     if (!isStarted) {
+      // Dispatch start event so the sprite can react (only once per power cycle)
+      window.dispatchEvent(new CustomEvent('startBtn'));
+      
       playSound(400, 'square', 0.1);
       setIsStarted(true);
       setIsBooting(true);
@@ -101,7 +104,7 @@ export default function ConsoleShell({ playSound }) {
   return (
     <section className="relative w-full h-full flex justify-center items-center" aria-label="Retro console portfolio">
       <div 
-        className="relative w-full h-full flex flex-col max-w-[580px] sm:max-w-[660px] md:max-w-[720px] bg-gradient-to-b from-lilac-400 via-console-shell to-lilac-700 rounded-[52px] sm:rounded-[60px] p-4 sm:p-5 pb-8 sm:pb-12 shadow-shell-outer border-2 border-purple-300/40"
+        className="relative z-10 w-full h-full flex flex-col max-w-[580px] sm:max-w-[660px] md:max-w-[720px] bg-gradient-to-b from-lilac-400 via-console-shell to-lilac-700 rounded-[52px] sm:rounded-[60px] p-4 sm:p-5 pb-8 sm:pb-12 shadow-shell-outer border-2 border-purple-300/40"
       >
         {/* Power Controls Header */}
         <div className="flex items-center justify-between px-5 pb-3 sm:pb-4 text-[10px] font-pixel text-purple-950/80 select-none">

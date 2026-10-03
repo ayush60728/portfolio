@@ -206,10 +206,10 @@ export default function ScreenViewport({ playSound, isOn, isStarted, isBooting }
                 onKeyDown={(e) => handleTabKeyDown(e, idx)}
                 className={`relative pl-2 pr-1 py-2 w-full cursor-pointer font-pixel text-[9px] sm:text-[10px] tracking-widest transition-all outline-none focus-visible:ring-1 focus-visible:ring-retro-neonCyan ${
                   activeTab === idx
-                    ? 'text-white border border-[#7a5ea6] bg-[#1e1536]'
+                    ? 'text-white border border-[#7a5ea6] bg-[#1e1536] [text-shadow:0_0_4px_rgba(255,255,255,0.6)]'
                     : hoveredTab === idx && !isBooting
-                    ? 'text-retro-mint border border-retro-mint/50 bg-retro-mint/10'
-                    : 'text-slate-600 border border-transparent hover:text-slate-400'
+                    ? 'text-retro-mint border border-retro-mint/50 bg-retro-mint/10 [text-shadow:0_0_4px_rgba(52,211,153,0.6)]'
+                    : 'text-slate-500 border border-transparent hover:text-slate-400'
                 } ${isBooting ? 'opacity-40 pointer-events-none' : 'opacity-100'}`}
               >
                 <span className="relative z-10">{item}</span>
