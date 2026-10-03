@@ -2,8 +2,9 @@ import React, { useState, useRef, useEffect } from 'react';
 
 const TerminalTab = () => {
   const [history, setHistory] = useState([
-    { type: 'system', content: 'Portfolio Terminal OS v1.0.0' },
-    { type: 'system', content: 'Type "help" to see available commands.' }
+    { type: 'system', content: 'Terminal' },
+    { type: 'system', content: 'Type "help" to see available commands.' },
+    { type: 'system', content: 'Press ESC or type "exit" to go back to MYSELF.' }
   ]);
   const [input, setInput] = useState('');
   const [commandHistory, setCommandHistory] = useState([]);
@@ -39,48 +40,25 @@ const TerminalTab = () => {
     switch (cmd) {
       case 'help':
         newHistory.push({ type: 'output', content: 'Available commands:' });
-        newHistory.push({ type: 'output', content: '  about    - brief bio' });
-        newHistory.push({ type: 'output', content: '  skills   - list of skills' });
-        newHistory.push({ type: 'output', content: '  projects - list of projects' });
-        newHistory.push({ type: 'output', content: '  contact  - contact info' });
-        newHistory.push({ type: 'output', content: '  whoami   - current user' });
-        newHistory.push({ type: 'output', content: '  date     - current date/time' });
-        newHistory.push({ type: 'output', content: '  echo     - prints text back' });
         newHistory.push({ type: 'output', content: '  clear    - clears the terminal' });
+        newHistory.push({ type: 'output', content: '  echo     - prints text back' });
+        newHistory.push({ type: 'output', content: '  exit     - go back to myself tab' });
         newHistory.push({ type: 'output', content: '  help     - shows this message' });
+        // Add your custom commands to the help list here
         break;
-      case 'about':
-        newHistory.push({ type: 'output', content: 'Ayush Kumar — Developer. Building playful web experiences.' });
-        break;
-      case 'skills':
-        newHistory.push({ type: 'output', content: 'Languages: JavaScript, TypeScript, Python, C++, Java' });
-        newHistory.push({ type: 'output', content: 'Frontend:  React, Next.js, Tailwind CSS, Framer Motion' });
-        newHistory.push({ type: 'output', content: 'Backend:   Node.js, Express, MongoDB, PostgreSQL' });
-        newHistory.push({ type: 'output', content: 'AI/ML:     MediaPipe, Gemini API, Ollama, LangChain' });
-        newHistory.push({ type: 'output', content: 'Tools:     Git, Docker, Linux, VS Code, Figma' });
-        break;
-      case 'projects':
-        newHistory.push({ type: 'output', content: '1. Desktop Agent  — Local AI resolver (Python/Ollama/Qwen3)' });
-        newHistory.push({ type: 'output', content: '2. AquaTrace      — Chrome ext for AI carbon footprints' });
-        newHistory.push({ type: 'output', content: '3. Synapse        — P2P skill-swapping platform' });
-        newHistory.push({ type: 'output', content: '4. Mind & Fitness — AI coaching with posture detection' });
-        break;
-      case 'contact':
-        newHistory.push({ type: 'output', content: 'Email: ayushkumar44344@gmail.com' });
-        newHistory.push({ type: 'output', content: 'GitHub: github.com/ayush60728' });
-        break;
+      case 'exit':
+        window.dispatchEvent(new CustomEvent('escapeToMyself'));
+        return;
       case 'clear':
         setHistory([]);
         return;
-      case 'whoami':
-        newHistory.push({ type: 'output', content: 'ayush@portfolio' });
-        break;
-      case 'date':
-        newHistory.push({ type: 'output', content: new Date().toString() });
-        break;
       case 'echo':
         newHistory.push({ type: 'output', content: args.slice(1).join(' ') });
         break;
+      // Add your custom command cases below:
+      // case 'about':
+      //   newHistory.push({ type: 'output', content: 'Your custom bio here' });
+      //   break;
       default:
         newHistory.push({ type: 'output', content: `command not found: ${cmd}. Type 'help' for available commands.` });
     }
@@ -92,7 +70,9 @@ const TerminalTab = () => {
     // Stop propagation so global D-pad/buttons don't capture this
     e.stopPropagation();
 
-    if (e.key === 'Enter') {
+    if (e.key === 'Escape') {
+      window.dispatchEvent(new CustomEvent('escapeToMyself'));
+    } else if (e.key === 'Enter') {
       handleCommand(input);
       setInput('');
     } else if (e.key === 'ArrowUp') {
@@ -124,7 +104,7 @@ const TerminalTab = () => {
       
       <div 
         ref={scrollContainerRef}
-        className="flex-1 overflow-y-auto custom-scrollbar flex flex-col gap-1 pb-2 z-20"
+        className="w-full h-full overflow-y-auto custom-scrollbar flex flex-col gap-1 pb-2 z-20"
         onClick={() => inputRef.current && inputRef.current.focus({ preventScroll: true })}
       >
         {history.map((line, i) => (
@@ -139,20 +119,20 @@ const TerminalTab = () => {
             {line.content}
           </div>
         ))}
-      </div>
-
-      <div className="flex items-center text-retro-neonCyan drop-shadow-[0_0_4px_rgba(34,211,238,0.5)] mt-1 shrink-0 z-20">
-        <span className="mr-2">ayush@portfolio:~$</span>
-        <input
-          ref={inputRef}
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleKeyDown}
-          autoComplete="off"
-          spellCheck="false"
-          className="flex-1 bg-transparent outline-none border-none text-retro-mint drop-shadow-[0_0_4px_rgba(52,211,153,0.5)] p-0 focus:ring-0 focus:outline-none placeholder-transparent font-lcd text-[18px] sm:text-[20px]"
-        />
+        
+        <div className="flex items-center text-retro-neonCyan drop-shadow-[0_0_4px_rgba(34,211,238,0.5)] mt-1 shrink-0">
+          <span className="mr-2">ayush@portfolio:~$</span>
+          <input
+            ref={inputRef}
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            autoComplete="off"
+            spellCheck="false"
+            className="flex-1 bg-transparent outline-none border-none text-retro-mint drop-shadow-[0_0_4px_rgba(52,211,153,0.5)] p-0 focus:ring-0 focus:outline-none placeholder-transparent font-lcd text-[18px] sm:text-[20px]"
+          />
+        </div>
       </div>
     </div>
   );

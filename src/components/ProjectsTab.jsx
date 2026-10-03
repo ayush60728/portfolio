@@ -57,13 +57,14 @@ const PROJECTS = [
   }
 ];
 
-export default function ProjectsTab() {
+export default function ProjectsTab({ isFocused }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const scrollRef = useRef(null);
   const cardRefs = useRef([]);
 
   useEffect(() => {
     const handleContentNav = (e) => {
+      if (!isFocused) return;
       const { direction } = e.detail;
       setSelectedIndex((prev) => {
         let next = prev;
@@ -77,7 +78,7 @@ export default function ProjectsTab() {
     };
     window.addEventListener('contentNav', handleContentNav);
     return () => window.removeEventListener('contentNav', handleContentNav);
-  }, []);
+  }, [isFocused]);
 
 
   return (
@@ -109,7 +110,7 @@ export default function ProjectsTab() {
             ref={el => cardRefs.current[idx] = el}
             onClick={() => setSelectedIndex(idx)}
             className={`flex flex-col border p-3 cursor-pointer transition-all duration-200 ${
-              selectedIndex === idx 
+              selectedIndex === idx && isFocused
                 ? 'border-retro-neonCyan bg-cyan-950/40 shadow-[0_0_10px_rgba(34,211,238,0.2),inset_0_0_15px_rgba(34,211,238,0.15)] scale-[1.02]' 
                 : 'border-slate-700/80 bg-[#0a0d16] opacity-70 hover:opacity-90'
             }`}

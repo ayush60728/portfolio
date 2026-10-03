@@ -3,7 +3,7 @@ import React, { useRef, useEffect, useState } from 'react';
 const ANIMATIONS = {
   waving: { start: 5.0, end: 6.0, next: 'armsCrossed' }, 
   armsCrossed: { start: 3.0, end: 4.0, next: 'armsCrossed' }, 
-  thumbsUp: { start: 8.0, end: 10.0, next: 'armsCrossed' },
+  thumbsUp: { start: 8.0, end: 9.8, next: 'armsCrossed' },
   idle: { start: 0.0, end: 0.5, next: 'idle' },
 };
 
@@ -50,9 +50,11 @@ export default function SpriteVideo({ isOn }) {
 
     let checkTimeRef;
     const checkTime = () => {
-      if (!video.paused && video.currentTime >= anim.end) {
+      // If the video reached the target time OR the absolute end of the file
+      if (video.currentTime >= anim.end || video.ended) {
         if (anim.next === currentAnim) {
           video.currentTime = anim.start; // Loop
+          if (video.paused) video.play().catch(e => console.warn(e));
         } else {
           setCurrentAnim(anim.next); // Transition
           return;

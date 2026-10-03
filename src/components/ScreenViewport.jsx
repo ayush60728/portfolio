@@ -85,7 +85,8 @@ export default function ScreenViewport({ playSound, isOn, isStarted, isBooting }
         } else if (direction === 'down') {
           setHoveredTab((prev) => Math.min(prev + 1, TAB_NAMES.length - 1));
         } else if (direction === 'right') {
-          // Enter content mode
+          // Enter content mode for the currently hovered tab
+          setActiveTab(hoveredTab);
           setFocusMode('content');
           if (playSound) playSound(640, 'square', 0.05);
         }
@@ -107,7 +108,6 @@ export default function ScreenViewport({ playSound, isOn, isStarted, isBooting }
       if (e.detail.type === 'A') {
         if (focusMode === 'sidebar') {
           setActiveTab(hoveredTab);
-          setFocusMode('content');
           if (playSound) playSound(600, 'square', 0.05);
         }
       }
@@ -128,6 +128,12 @@ export default function ScreenViewport({ playSound, isOn, isStarted, isBooting }
       if (playSound) playSound(600, 'square', 0.05);
     }
   }, [isBooting, playSound]);
+
+  useEffect(() => {
+    const handleEscape = () => handleTabClick(0); // 0 is MYSELF
+    window.addEventListener('escapeToMyself', handleEscape);
+    return () => window.removeEventListener('escapeToMyself', handleEscape);
+  }, [handleTabClick]);
 
   const handleTabKeyDown = useCallback((e, idx) => {
     if (e.key === 'Enter' || e.key === ' ') {
@@ -237,8 +243,8 @@ export default function ScreenViewport({ playSound, isOn, isStarted, isBooting }
             ) : (
               <div className="w-full h-full animate-content-fade">
                 {activeTab === 0 && <MyselfTab />}
-                {activeTab === 1 && <ProjectsTab />}
-                {activeTab === 2 && <SkillsTab />}
+                {activeTab === 1 && <ProjectsTab isFocused={focusMode === 'content'} />}
+                {activeTab === 2 && <SkillsTab isFocused={focusMode === 'content'} />}
                 {activeTab === 3 && <TerminalTab />}
               </div>
             )}
