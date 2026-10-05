@@ -1,7 +1,9 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import ScreenViewport from './ScreenViewport';
 import { useGameInput } from '../hooks/useGameInput';
-import SpriteVideo from './SpriteVideo';
+import PixelCharacter from './PixelCharacter';
+import FrameExtractor from './FrameExtractor';
+// import SpriteVideo from './SpriteVideo'; // keep as fallback
 
 export default function ConsoleShell({ playSound }) {
   const [scanlines, setScanlines] = useState(true);
@@ -255,8 +257,15 @@ export default function ConsoleShell({ playSound }) {
         </div>
       </div>
 
-      {/* Animated Mascot (Right Side) */}
-      <SpriteVideo isOn={isOn} />
+      {/* 
+        DEV: Set EXTRACT_MODE = true to open the frame extractor tool.
+        After downloading all 5 PNGs into public/character/, set it back to false.
+      */}
+      {false /* EXTRACT_MODE — set to true to re-extract frames */ ? (
+        <FrameExtractor />
+      ) : (
+        <PixelCharacter isOn={isOn} />
+      )}
     </section>
   );
 }
