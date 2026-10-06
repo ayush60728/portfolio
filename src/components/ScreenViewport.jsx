@@ -104,12 +104,13 @@ export default function ScreenViewport({ playSound, isOn, isStarted, isBooting }
     };
 
     const handleAction = (e) => {
-      if (activeTab === 3) return;
+      if (activeTab === 3) return; // Ignore in Terminal
       if (e.detail.type === 'A') {
-        if (focusMode === 'sidebar') {
-          setActiveTab(hoveredTab);
-          if (playSound) playSound(600, 'square', 0.05);
-        }
+        // Map 'A' button to Right D-pad action
+        handleDpad({ detail: { direction: 'right' } });
+      } else if (e.detail.type === 'B') {
+        // Map 'B' button to Left D-pad action
+        handleDpad({ detail: { direction: 'left' } });
       }
     };
 

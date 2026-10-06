@@ -31,12 +31,12 @@ const ANIM_TIMELINE = {
     fps: 2, 
     next: 'idleLoop' 
   },
-  thumbsUp: { 
-    src: 'character-sprite.png', 
-    totalFrames: 5, 
-    // Thumbs up (3) and Wink (4)
-    sequence: [3, 4, 3, 4, 3, 4, 3], 
-    fps: 6, 
+  armsCrossedTrans: { 
+    src: 'full-sequence.png', 
+    totalFrames: 24, 
+    // Play the folding arms transition
+    sequence: [16,17,18,19,20,21,22,23], 
+    fps: 8, 
     next: 'idleLoop' 
   },
 };
@@ -48,12 +48,9 @@ export default function PixelCharacter({ isOn }) {
   const timerRef = useRef(null);
 
   // ── Listen for START button ──────────────────────────────────────────────
+  // (Removed to prevent frame cuts)
   useEffect(() => {
-    const handleStart = () => {
-      if (isOn) switchAnim('thumbsUp');
-    };
-    window.addEventListener('startBtn', handleStart);
-    return () => window.removeEventListener('startBtn', handleStart);
+    // START button no longer interrupts the character animation.
   }, [isOn]);
 
   // ── Sync with power switch ───────────────────────────────────────────────
@@ -67,7 +64,7 @@ export default function PixelCharacter({ isOn }) {
     clearInterval(timerRef.current);
     setCurrentAnim(name);
     setFrameIdx(0);
-    setShowSparkles(name === 'thumbsUp');
+    setShowSparkles(false);
 
     const config = ANIM_TIMELINE[name];
     if (!config || config.sequence.length <= 1) return;
