@@ -40,7 +40,7 @@ export default function ProjectsTab({ isFocused }) {
   return (
     <div
       ref={scrollRef}
-      className="h-full w-full overflow-y-auto custom-scrollbar bg-[#080c15]"
+      className="h-full w-full overflow-x-hidden overflow-y-auto custom-scrollbar bg-[#080c15]"
       aria-label="Project showcase"
     >
       <div className="relative min-h-full px-3 pb-8 pt-3 sm:px-4">
