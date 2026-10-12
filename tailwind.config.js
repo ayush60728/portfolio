@@ -36,11 +36,11 @@ export default {
         }
       },
       fontFamily: {
-        pixel: ['"Press Start 2P"', 'monospace'],
-        retro: ['"Silkscreen"', 'monospace'],
-        lcd: ['"VT323"', 'monospace'],
-        mono: ['"Fira Code"', 'monospace'],
-        sans: ['"Plus Jakarta Sans"', 'sans-serif']
+        pixel: ['"Press Start 2P"', '"Courier New"', 'monospace'],
+        retro: ['"Silkscreen"', '"Lucida Console"', 'monospace'],
+        lcd: ['"VT323"', '"Courier New"', 'monospace'],
+        mono: ['"Fira Code"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+        sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'sans-serif']
       },
       boxShadow: {
         'shell-outer': '0 35px 80px -15px rgba(12, 9, 30, 0.8), 0 20px 45px -18px rgba(0, 0, 0, 0.6), inset 0 3px 6px rgba(255, 255, 255, 0.45), inset 0 -6px 10px rgba(0, 0, 0, 0.35)',

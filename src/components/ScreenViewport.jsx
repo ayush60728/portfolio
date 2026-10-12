@@ -13,6 +13,7 @@ export default function ScreenViewport({ playSound, isOn, isStarted, isBooting }
   const [activeTab, setActiveTab] = useState(0);
   const [hoveredTab, setHoveredTab] = useState(0);
   const sidebarRef = useRef(null);
+  const contentRef = useRef(null);
 
   // Clock Effect
   useEffect(() => {
@@ -63,11 +64,6 @@ export default function ScreenViewport({ playSound, isOn, isStarted, isBooting }
 
   const [focusMode, setFocusMode] = useState('sidebar'); // 'sidebar' | 'content'
 
-  // Reset to sidebar focus whenever the active tab changes
-  useEffect(() => {
-    setFocusMode('sidebar');
-  }, [activeTab]);
-
   // Two-mode navigation: sidebar (up/down = cursor, right = enter content) 
   //                       content (up/down = scroll/navigate, left = back to sidebar)
   useEffect(() => {
@@ -88,6 +84,10 @@ export default function ScreenViewport({ playSound, isOn, isStarted, isBooting }
           // Enter content mode for the currently hovered tab
           setActiveTab(hoveredTab);
           setFocusMode('content');
+          // Move DOM focus away from the sidebar. Otherwise the focused tab's
+          // key handler also receives ArrowUp/ArrowDown and changes the main
+          // section while the content view is being navigated.
+          contentRef.current?.focus({ preventScroll: true });
           if (playSound) playSound(640, 'square', 0.05);
         }
       } else {
@@ -126,6 +126,7 @@ export default function ScreenViewport({ playSound, isOn, isStarted, isBooting }
     if (!isBooting) {
       setActiveTab(idx);
       setHoveredTab(idx);
+      setFocusMode('sidebar');
       if (playSound) playSound(600, 'square', 0.05);
     }
   }, [isBooting, playSound]);
@@ -137,6 +138,13 @@ export default function ScreenViewport({ playSound, isOn, isStarted, isBooting }
   }, [handleTabClick]);
 
   const handleTabKeyDown = useCallback((e, idx) => {
+    // Arrow keys belong to the active content view after Enter/A enters it.
+    // The sidebar tab may still be the DOM event target during that keydown.
+    if (focusMode !== 'sidebar') {
+      e.preventDefault();
+      return;
+    }
+
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       handleTabClick(idx);
@@ -151,7 +159,7 @@ export default function ScreenViewport({ playSound, isOn, isStarted, isBooting }
       const items = sidebarRef.current?.querySelectorAll('[role="tab"]');
       items?.[prev]?.focus();
     }
-  }, [handleTabClick]);
+  }, [focusMode, handleTabClick]);
 
   return (
     <div
@@ -234,7 +242,9 @@ export default function ScreenViewport({ playSound, isOn, isStarted, isBooting }
 
           {/* Right Main Content Area */}
           <div
+            ref={contentRef}
             className="absolute top-12 bottom-0 left-[127px] right-0 overflow-hidden"
+            tabIndex={-1}
             role="tabpanel"
             id={`tabpanel-${TAB_NAMES[activeTab].toLowerCase()}`}
             aria-labelledby={TAB_NAMES[activeTab]}

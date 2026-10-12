@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { skillsData } from '../data/portfolio';
 
 const SkillsTab = () => {
   const containerRef = useRef(null);
@@ -17,29 +18,6 @@ const SkillsTab = () => {
     window.addEventListener('contentNav', handleContentNav);
     return () => window.removeEventListener('contentNav', handleContentNav);
   }, []);
-
-  const skillsData = [
-    {
-      category: 'Languages',
-      skills: ['JavaScript', 'TypeScript', 'Python', 'C++', 'Java', 'SQL']
-    },
-    {
-      category: 'Frontend',
-      skills: ['React', 'Next.js', 'Tailwind CSS', 'HTML/CSS', 'Framer Motion']
-    },
-    {
-      category: 'Backend',
-      skills: ['Node.js', 'Express.js', 'MongoDB', 'PostgreSQL', 'Firebase']
-    },
-    {
-      category: 'Tools',
-      skills: ['Git', 'Docker', 'Linux', 'VS Code', 'Figma']
-    },
-    {
-      category: 'AI/ML',
-      skills: ['MediaPipe', 'Gemini API', 'Ollama', 'LangChain']
-    }
-  ];
 
   return (
     <div

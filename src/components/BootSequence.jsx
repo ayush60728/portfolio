@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
+import { profileData } from '../data/portfolio';
 
 export default function BootSequence({ onComplete }) {
   const [phase, setPhase] = useState(0);
@@ -7,7 +8,7 @@ export default function BootSequence({ onComplete }) {
   const [bursts, setBursts] = useState([]);
   const [textGlow, setTextGlow] = useState(false);
 
-  const titleText = 'AYUSH';
+  const titleText = profileData.name;
   const subText = 'welcomes you';
   const allLetters = [
     ...titleText.split('').map((c, i) => `t-${i}`),

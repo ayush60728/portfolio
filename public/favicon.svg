@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title>Ayush Kumar portfolio</title>
+  <rect width="64" height="64" rx="14" fill="#9b84d6"/>
+  <rect x="7" y="7" width="50" height="39" rx="8" fill="#181726" stroke="#c7b5f2" stroke-width="3"/>
+  <path d="M18 37 27.5 16h5L42 37h-5l-2.2-5H25l-2.2 5Zm9-9h6l-3-7.2Z" fill="#34d399"/>
+  <circle cx="18" cy="54" r="3" fill="#34d399"/>
+  <circle cx="46" cy="54" r="3" fill="#8e2856"/>
+</svg>

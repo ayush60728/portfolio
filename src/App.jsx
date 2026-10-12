@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import ConsoleShell from './components/ConsoleShell';
+import { profileData } from './data/portfolio';
 
 export default function App() {
   const [sfxEnabled, setSfxEnabled] = useState(true);
@@ -41,13 +42,7 @@ export default function App() {
     }
   };
 
-  const toggleAudio = () => {
-    setSfxEnabled(prev => {
-      const next = !prev;
-      if (next) triggerRetroBeep(880, 'sine', 0.1);
-      return next;
-    });
-  };
+  const toggleAudio = () => setSfxEnabled(prev => !prev);
 
   return (
     <div className="h-screen w-screen flex flex-col bg-[#070912] overflow-hidden relative">
@@ -59,11 +54,15 @@ export default function App() {
       </div>
 
       <main className="relative z-10 flex-1 w-full max-w-6xl mx-auto p-2 sm:p-4 flex flex-col items-center justify-center overflow-hidden">
-        <ConsoleShell playSound={triggerRetroBeep} />
+        <ConsoleShell
+          playSound={triggerRetroBeep}
+          sfxEnabled={sfxEnabled}
+          toggleAudio={toggleAudio}
+        />
       </main>
 
       <footer className="relative z-10 border-t border-purple-950/40 bg-slate-950/90 py-2 text-center text-xs text-slate-500 font-mono shrink-0">
-        <p>© {new Date().getFullYear()} AYUSH KUMAR — Built with React, Tailwind & Web Audio Synth.</p>
+        <p>© {new Date().getFullYear()} {profileData.displayName} — Built with React, Tailwind & Web Audio Synth.</p>
       </footer>
     </div>
   );

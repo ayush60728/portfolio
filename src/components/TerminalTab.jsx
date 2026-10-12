@@ -88,11 +88,6 @@ const TerminalTab = () => {
     }
   };
 
-  const handleChip = (cmd) => {
-    handleCommand(cmd);
-    inputRef.current?.focus({ preventScroll: true });
-  };
-
   return (
     <div className="w-full h-full flex flex-col gap-2 p-2 bg-[#080b13] font-lcd overflow-hidden">
       {/* Subtle scanline overlay */}
@@ -120,10 +115,10 @@ const TerminalTab = () => {
             <span>All modules mounted successfully.</span>
           </div>
           <div className="flex items-center justify-between text-cyan-300">
-            <span className="truncate">[SUBSYS] Type "help" to see available commands.</span>
+            <span className="truncate">[SUBSYS] Type &quot;help&quot; to see available commands.</span>
             <span className="text-retro-amber font-mono text-[8px] shrink-0">CH-0 READY</span>
           </div>
-          <div className="text-slate-400 font-mono text-[10px]">Press ESC or type "exit" to go back to MYSELF.</div>
+          <div className="text-slate-400 font-mono text-[10px]">Press ESC or type &quot;exit&quot; to go back to MYSELF.</div>
         </div>
       </div>
 
@@ -133,7 +128,7 @@ const TerminalTab = () => {
         <div className="flex items-center gap-1 px-2 py-0.5 rounded bg-slate-950 border border-purple-800/60 text-[8px] font-pixel text-[#d8b4fe] shadow-sm">
           <span className="w-1.5 h-1.5 bg-[#c084fc] rounded-sm"></span>
           <span>TERMINAL PROMPT BUS v2.5</span>
-          <span className="text-retro-mint">///</span>
+          <span className="text-retro-mint">{'///'}</span>
         </div>
         <div className="h-[1px] flex-1 bg-gradient-to-r from-purple-500/80 via-purple-700/60 to-cyan-900/20"></div>
       </div>

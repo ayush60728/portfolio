@@ -1,168 +1,199 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { profileData, projectsData } from '../data/portfolio';
 
-const PROJECTS = [
-  {
-    id: 'agent',
-    title: 'Desktop Agent',
-    type: 'Local AI',
-    stack: 'Python • Ollama • Qwen3',
-    desc: 'Self-learning desktop resolver converting natural language to JSON actions.',
-    features: [
-      'Tiered search & JSON caching for instant local path/folder retrieval.',
-      'Integrated local Qwen3 LLM via Ollama for natural language to strict JSON schema execution.',
-      'Optimized latency by ~10x using decoding constraints and persistent warm-loading.'
-    ],
-    github: 'https://github.com/ayush60728/Agent'
-  },
-  {
-    id: 'aquatrace',
-    title: 'AquaTrace',
-    type: 'Chrome Ext',
-    stack: 'Manifest V3 • Tokenizer',
-    desc: 'Tracks and estimates water/energy/CO2 footprint of AI conversations.',
-    features: [
-      'Local token counting via GPT Tokenizer for ChatGPT, Claude, Gemini, and DeepSeek.',
-      'Calculates real-time environmental footprints based on research estimates.',
-      'Includes daily budget alerts, local data exports, and persistent statistics.'
-    ],
-    github: 'https://github.com/ayush60728/AquaTrace',
-    launch: 'https://chromewebstore.google.com/detail/aquatrace/lmjgniffadnhnpphojncpmaojpiflbcn'
-  },
-  {
-    id: 'synapse',
-    title: 'Synapse',
-    type: 'P2P Platform',
-    stack: 'React 19 • Node.js • WebRTC',
-    desc: 'Real-time skill exchange with virtual escrow wallets and 1:1 meeting rooms.',
-    features: [
-      'Engineered a virtual SKILL_CREDIT escrow wallet with MongoDB Transactions.',
-      'Built dynamic 1:1 meeting rooms via WebRTC/Jitsi and Socket.io.',
-      'Implemented strict Zod validation, rate limiting, and Multer/ImageKit uploads.'
-    ],
-    github: 'https://github.com/ayush60728'
-  },
-  {
-    id: 'mf',
-    title: 'Mind & Fitness',
-    type: 'AI Web App',
-    stack: 'React • Gemini API • MediaPipe',
-    desc: 'AI coaching assistant with computer vision-based exercise posture analysis.',
-    features: [
-      'Integrated Gemini API for AI-driven nutrition analysis and personalized coaching.',
-      'Developed posture validation and rep tracking using MediaPipe Pose.',
-      'Combined real-time computer vision geometry with rule-based form evaluation.'
-    ],
-    github: 'https://github.com/ayush60728/Tracker-with-posture-detection-',
-    launch: 'https://mf-frontend-qs7c.onrender.com'
-  }
-];
+const formatProjectNumber = (index) => String(index + 1).padStart(2, '0');
 
 export default function ProjectsTab({ isFocused }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const scrollRef = useRef(null);
-  const cardRefs = useRef([]);
+  const projectRefs = useRef([]);
+  const selectedProject = projectsData[selectedIndex];
 
   useEffect(() => {
-    const handleContentNav = (e) => {
+    const handleContentNav = (event) => {
       if (!isFocused) return;
-      const { direction } = e.detail;
-      setSelectedIndex((prev) => {
-        let next = prev;
-        if (direction === 'up' && prev > 0) next = prev - 1;
-        if (direction === 'down' && prev < PROJECTS.length - 1) next = prev + 1;
-        if (next !== prev && cardRefs.current[next]) {
-          cardRefs.current[next].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+      const { direction } = event.detail;
+      setSelectedIndex((previousIndex) => {
+        let nextIndex = previousIndex;
+        if (direction === 'up') nextIndex = Math.max(previousIndex - 1, 0);
+        if (direction === 'down') nextIndex = Math.min(previousIndex + 1, projectsData.length - 1);
+
+        if (nextIndex !== previousIndex) {
+          requestAnimationFrame(() => {
+            projectRefs.current[nextIndex]?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          });
         }
-        return next;
+        return nextIndex;
       });
     };
+
     window.addEventListener('contentNav', handleContentNav);
     return () => window.removeEventListener('contentNav', handleContentNav);
   }, [isFocused]);
 
+  const selectProject = (index) => {
+    setSelectedIndex(index);
+    scrollRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
-    <div 
+    <div
       ref={scrollRef}
-      className="w-full h-full flex flex-col overflow-y-auto custom-scrollbar relative"
+      className="h-full w-full overflow-y-auto custom-scrollbar bg-[#080c15]"
+      aria-label="Project showcase"
     >
-      <div className="flex justify-between items-center sticky top-0 bg-console-screenBg z-10 pb-2 pt-3 px-4 mb-3 border-b border-slate-700/80 shadow-md">
-        <a 
-          href="https://github.com/ayush60728" 
-          target="_blank" 
-          rel="noreferrer" 
-          className="font-pixel text-[13px] text-retro-mint drop-shadow-[0_0_6px_rgba(52,211,153,0.5)] hover:text-white transition-colors tracking-wide"
-        >
-          @ayush60728
-        </a>
-        <a href="https://github.com/ayush60728" target="_blank" rel="noreferrer">
-          <img 
-            src="https://github.com/ayush60728.png" 
-            alt="ayush60728" 
-            className="w-12 h-12 rounded-sm border border-retro-mint/50 hover:border-white transition-colors shadow-sm"
-          />
-        </a>
-      </div>
-      <div className="flex flex-col gap-3 px-4 pb-10">
-        {PROJECTS.map((proj, idx) => (
-          <div 
-            key={proj.id} 
-            ref={el => cardRefs.current[idx] = el}
-            onClick={() => setSelectedIndex(idx)}
-            className={`flex flex-col border p-3 cursor-pointer transition-all duration-200 ${
-              selectedIndex === idx && isFocused
-                ? 'border-retro-neonCyan bg-cyan-950/40 shadow-[0_0_10px_rgba(34,211,238,0.2),inset_0_0_15px_rgba(34,211,238,0.15)] scale-[1.02]' 
-                : 'border-slate-700/80 bg-[#0a0d16] opacity-70 hover:opacity-90'
-            }`}
+      <div className="relative min-h-full px-3 pb-8 pt-3 sm:px-4">
+        <div className="pointer-events-none absolute inset-0 opacity-40" aria-hidden="true">
+          <div className="absolute -right-16 top-14 h-32 w-32 rounded-full bg-retro-neonCyan/10 blur-3xl" />
+          <div className="absolute -left-20 bottom-16 h-40 w-40 rounded-full bg-retro-mint/5 blur-3xl" />
+        </div>
+
+        <header className="relative flex items-end justify-between gap-3 border-b border-slate-700/70 pb-3">
+          <div>
+            <p className="font-pixel text-[7px] tracking-[0.22em] text-retro-mint [text-shadow:0_0_7px_rgba(52,211,153,0.45)]">
+              WORK / INDEX
+            </p>
+            <h2 className="mt-2 font-sans text-[18px] font-extrabold tracking-tight text-slate-100 sm:text-[20px]">
+              Selected projects
+            </h2>
+          </div>
+          <a
+            href={profileData.github.url}
+            target="_blank"
+            rel="noreferrer"
+            className="shrink-0 border border-slate-600/80 bg-slate-900/80 px-2 py-1.5 font-mono text-[8px] font-semibold tracking-wide text-slate-300 transition-colors hover:border-retro-mint hover:text-retro-mint focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-retro-neonCyan"
           >
-            <div className="flex justify-between items-start mb-2">
-              <span className={`font-pixel text-[11px] tracking-wide ${selectedIndex === idx ? 'text-retro-neonCyan' : 'text-slate-300'}`}>
-                {proj.title}
-              </span>
-              <span className="font-pixel text-[8px] text-slate-500 bg-[#0d121f] px-1.5 py-0.5 border border-slate-700/80">
-                {proj.type}
+            GITHUB ↗
+          </a>
+        </header>
+
+        <div className="relative flex items-center justify-between py-2 font-mono text-[8px] uppercase tracking-[0.12em] text-slate-500">
+          <span>Curated build log</span>
+          <span className="text-retro-neonCyan">{projectsData.length} projects</span>
+        </div>
+
+        <article
+          className={`relative overflow-hidden rounded-xl border transition-all duration-300 ${
+            isFocused
+              ? 'border-retro-neonCyan/80 bg-gradient-to-br from-[#112330] via-[#0d1721] to-[#11102a] shadow-[0_0_22px_rgba(34,211,238,0.16)]'
+              : 'border-slate-700/80 bg-[#0c111b]'
+          }`}
+          aria-live="polite"
+        >
+          <div className="h-1 bg-gradient-to-r from-retro-mint via-retro-neonCyan to-lilac-500" />
+          <div className="p-4">
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2 font-mono text-[9px] font-semibold tracking-[0.12em]">
+                <span className="text-retro-mint">{formatProjectNumber(selectedIndex)}</span>
+                <span className="text-slate-600">/</span>
+                <span className="text-slate-500">{formatProjectNumber(projectsData.length)}</span>
+              </div>
+              <span className="rounded-full border border-retro-mint/30 bg-retro-mint/10 px-2 py-1 font-mono text-[8px] font-semibold uppercase tracking-wide text-retro-mint">
+                {selectedProject.type}
               </span>
             </div>
-            <p className={`font-sans text-[11px] mb-3 leading-relaxed ${selectedIndex === idx ? 'text-slate-300' : 'text-slate-400'}`}>
-              {proj.desc}
+
+            <h3 className="mt-3 font-sans text-[21px] font-extrabold leading-tight tracking-tight text-white sm:text-[23px]">
+              {selectedProject.title}
+            </h3>
+            <p className="mt-2 max-w-[42rem] font-sans text-[11px] leading-relaxed text-slate-300 sm:text-[12px]">
+              {selectedProject.desc}
             </p>
-            {selectedIndex === idx && proj.features && (
-              <ul className="list-square list-inside font-sans text-[10px] text-slate-400 mb-4 space-y-1.5 ml-1">
-                {proj.features.map((feat, i) => (
-                  <li key={i} className="leading-relaxed"><span className="text-retro-neonCyan mr-1">►</span>{feat}</li>
+
+            <div className="mt-3 flex flex-wrap gap-1.5">
+              {selectedProject.stack.split(' • ').map((technology) => (
+                <span
+                  key={technology}
+                  className="rounded-md border border-slate-600/80 bg-[#080c15]/70 px-2 py-1 font-mono text-[8px] text-slate-300"
+                >
+                  {technology}
+                </span>
+              ))}
+            </div>
+
+            <div className="mt-4 border-t border-white/10 pt-3">
+              <div className="flex items-center justify-between">
+                <span className="font-pixel text-[8px] tracking-[0.14em] text-slate-400">BUILD NOTES</span>
+                <span className="font-mono text-[8px] text-slate-600">03 HIGHLIGHTS</span>
+              </div>
+              <ul className="mt-2 space-y-2">
+                {selectedProject.features.map((feature, featureIndex) => (
+                  <li key={feature} className="flex gap-2 font-sans text-[10px] leading-relaxed text-slate-400 sm:text-[11px]">
+                    <span className="mt-0.5 shrink-0 font-mono text-[9px] font-bold text-retro-mint">
+                      0{featureIndex + 1}
+                    </span>
+                    <span>{feature}</span>
+                  </li>
                 ))}
               </ul>
-            )}
-            <div className="flex justify-end items-end mt-auto">
-              {selectedIndex === idx && (
-                <div className="flex gap-2">
-                  {proj.github && (
-                    <a 
-                      href={proj.github} 
-                      target="_blank" 
-                      rel="noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="font-pixel text-[9px] text-white bg-slate-800/80 border border-slate-500 px-2 py-1 hover:bg-slate-600 hover:text-white transition-colors shadow-sm"
-                    >
-                      GITHUB
-                    </a>
-                  )}
-                  {proj.launch && (
-                    <a 
-                      href={proj.launch} 
-                      target="_blank" 
-                      rel="noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="font-pixel text-[9px] text-white bg-retro-mint/20 border border-retro-mint px-2 py-1 hover:bg-retro-mint hover:text-black transition-colors shadow-[0_0_8px_rgba(52,211,153,0.3)]"
-                    >
-                      LAUNCH
-                    </a>
-                  )}
-                </div>
+            </div>
+
+            <div className="mt-4 flex flex-wrap gap-2">
+              <a
+                href={selectedProject.github}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 rounded-md border border-slate-500 bg-slate-800/80 px-3 py-2 font-mono text-[9px] font-bold tracking-wide text-white transition-all hover:-translate-y-0.5 hover:border-white hover:bg-slate-700 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-retro-neonCyan"
+              >
+                VIEW SOURCE <span aria-hidden="true">↗</span>
+              </a>
+              {selectedProject.launch && (
+                <a
+                  href={selectedProject.launch}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-md border border-retro-mint bg-retro-mint/15 px-3 py-2 font-mono text-[9px] font-bold tracking-wide text-retro-mint transition-all hover:-translate-y-0.5 hover:bg-retro-mint hover:text-[#06110d] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-retro-mint"
+                >
+                  OPEN LIVE <span aria-hidden="true">↗</span>
+                </a>
               )}
             </div>
           </div>
-        ))}
+        </article>
+
+        <section className="relative mt-4" aria-label="Choose a project">
+          <div className="mb-2 flex items-center justify-between">
+            <span className="font-pixel text-[8px] tracking-[0.14em] text-slate-400">BROWSE PROJECTS</span>
+            <span className="font-mono text-[8px] text-slate-600">↑ / ↓ TO EXPLORE</span>
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            {projectsData.map((project, index) => {
+              const isSelected = selectedIndex === index;
+              return (
+                <button
+                  key={project.id}
+                  ref={(element) => { projectRefs.current[index] = element; }}
+                  type="button"
+                  onClick={() => selectProject(index)}
+                  aria-current={isSelected ? 'true' : undefined}
+                  className={`group flex min-h-[62px] items-start gap-2 rounded-lg border p-2 text-left transition-all duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-retro-neonCyan ${
+                    isSelected && isFocused
+                      ? 'border-retro-neonCyan bg-cyan-950/40 shadow-[0_0_12px_rgba(34,211,238,0.14)]'
+                      : isSelected
+                        ? 'border-slate-500/80 bg-slate-800/50'
+                        : 'border-slate-700/70 bg-[#0b1019]/80 hover:border-slate-500 hover:bg-slate-800/40'
+                  }`}
+                >
+                  <span className={`font-mono text-[9px] font-bold ${isSelected ? 'text-retro-mint' : 'text-slate-600'}`}>
+                    {formatProjectNumber(index)}
+                  </span>
+                  <span className="min-w-0">
+                    <span className={`block truncate font-sans text-[10px] font-bold ${isSelected ? 'text-white' : 'text-slate-300'}`}>
+                      {project.title}
+                    </span>
+                    <span className="mt-1 block truncate font-mono text-[9px] font-medium text-slate-400 sm:text-[10px]">
+                      {project.type}
+                    </span>
+                  </span>
+                  <span className={`ml-auto pt-0.5 text-[12px] ${isSelected ? 'text-retro-neonCyan' : 'text-slate-700 group-hover:text-slate-400'}`} aria-hidden="true">
+                    ›
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </section>
       </div>
     </div>
   );

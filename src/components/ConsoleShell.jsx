@@ -5,7 +5,7 @@ import PixelCharacter from './PixelCharacter';
 import FrameExtractor from './FrameExtractor';
 // import SpriteVideo from './SpriteVideo'; // keep as fallback
 
-export default function ConsoleShell({ playSound }) {
+export default function ConsoleShell({ playSound, sfxEnabled, toggleAudio }) {
   const [scanlines, setScanlines] = useState(true);
   const [isOn, setIsOn] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
@@ -34,7 +34,7 @@ export default function ConsoleShell({ playSound }) {
       case 'B':     handleButtonB(); break;
       default: break;
     }
-  }, [isOn]);
+  }, [isOn, playSound]);
 
   useGameInput(handleGameInput);
 
@@ -149,6 +149,15 @@ export default function ConsoleShell({ playSound }) {
               <span className="absolute top-[2px] left-[2px] w-1 h-1 bg-white/70 rounded-full pointer-events-none"></span>
             </div>
           </div>
+          <button
+            type="button"
+            onClick={toggleAudio}
+            aria-label={`${sfxEnabled ? 'Disable' : 'Enable'} sound effects`}
+            aria-pressed={sfxEnabled}
+            className={`rounded border px-2 py-1 font-mono text-[8px] tracking-wide transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-retro-neonCyan ${sfxEnabled ? 'border-retro-mint/60 bg-retro-mint/10 text-retro-mint' : 'border-slate-700 bg-slate-900/40 text-slate-500'}`}
+          >
+            SFX {sfxEnabled ? 'ON' : 'OFF'}
+          </button>
         </div>
 
         {/* Screen Bezel */}
